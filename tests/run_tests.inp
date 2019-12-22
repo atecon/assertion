@@ -1,0 +1,140 @@
+set verbose off
+clear
+
+string WD = "/home/at/git/assertion"
+set workdir @WD
+include "./src/assertion.inp" --force
+
+
+print "Start with assertTrue()"
+if assertTrue(1) != 1
+    stop
+endif
+if assertTrue(0) != 0
+    stop
+endif
+if ok(assertTrue(NA)) != 0
+    stop
+endif
+if ok(assertTrue(2)) != 0
+    stop
+endif
+if ok(assertTrue(-1)) != 0
+    stop
+endif
+
+
+print "Start with assertFalse()"
+if assertFalse(1) != 0
+    stop
+endif
+if assertFalse(0) != 1
+    stop
+endif
+if ok(assertFalse(NA)) != 0
+    stop
+endif
+if ok(assertFalse(2)) != 0
+    stop
+endif
+if ok(assertFalse(-1)) != 0
+    stop
+endif
+
+
+print "Start with assertEqualStr()"
+if assertEqualStr("ABC", "ABC") != 1
+    stop
+endif
+if assertEqualStr(" ABC", "ABC") != 0
+    stop
+endif
+if assertEqualStr(toupper("abc"), "ABC") != 1
+    stop
+endif
+if assertEqualStr("", "") != 1
+    stop
+endif
+if assertEqualStr("", "__/%(=O?") != 0
+    stop
+endif
+if assertEqualStr("739838", "739838") != 1
+    stop
+endif
+
+
+print "Start with assertNotEqualStr()"
+if assertNotEqualStr("ABC", "ABC") != 0
+    stop
+endif
+if assertNotEqualStr(" ABC", "ABC") != 1
+    stop
+endif
+if assertNotEqualStr(toupper("abc"), "ABC") != 0
+    stop
+endif
+if assertNotEqualStr("", "") != 0
+    stop
+endif
+if assertNotEqualStr("", "__/%(=O?") != 1
+    stop
+endif
+if assertNotEqualStr("739838", "739838") != 0
+    stop
+endif
+
+
+
+
+print "Start with assertEqualNum()"
+if assertEqualNum(22, 22) != 1
+    stop
+endif
+if assertEqualNum(-34, 34) != 0
+    stop
+endif
+if assertEqualNum(NA, 34) != 0
+    stop
+endif
+if assertEqualNum(34, NA) != 0
+    stop
+endif
+if assertEqualNum(NA, NA) != 1
+    stop
+endif
+if assertEqualNum(-1, -1.001) != 0
+    stop
+endif
+if assertEqualNum(-1, -1.001) != 0
+    stop
+endif
+if assertEqualNum(log(22), log(0)) != 0
+    stop
+endif
+
+
+print "Start with assertNotEqualNum()"
+if assertNotEqualNum(22, 22) != 0
+    stop
+endif
+if assertNotEqualNum(-34, 34) != 1
+    stop
+endif
+if assertNotEqualNum(NA, 34) != 1
+    stop
+endif
+if assertNotEqualNum(34, NA) != 1
+    stop
+endif
+if assertNotEqualNum(NA, NA) != 0
+    stop
+endif
+if assertNotEqualNum(-1, -1.001) != 1
+    stop
+endif
+if assertNotEqualNum(-1, -1.001) != 1
+    stop
+endif
+
+
+printf "\nInfo: All tests passed.\n"
