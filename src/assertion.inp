@@ -1,14 +1,63 @@
 /*
-def test_upper(self):
-self.assertEqual('foo'.upper(), 'FOO')
+   def test_upper(self):
+   self.assertEqual('foo'.upper(), 'FOO')
 
-def test_isupper(self):
-self.assertTrue('FOO'.isupper())
-self.assertFalse('Foo'.isupper())
+   def test_isupper(self):
+   self.assertTrue('FOO'.isupper())
+   self.assertFalse('Foo'.isupper())
 */
 
+include string_utils.gfn --force		# FIXME: consider dependency!
+
+
+# TODO: Finish
+function scalar assertIsType (const bundle B,
+                              string type "scalar, series, matrix, string, bundle, array, list.")
+
+end function
+
+
+function scalar assertIsType (const bundle B,
+                              string type "scalar, series, matrix, string, bundle, array, list.")
+    /* Checks that element in bundle B is of a specified type.
+    Returns 1 if true, otherwise 0. */
+
+    strings types = defarray("scalar", "series", "matrix", "string", "bundle", "array", "list")
+
+    if nelem(B) != 1
+        printf "\nError: Bundle 'B' must include a single element to check."
+        return NA
+    else
+        key = getkeys(B)[1]
+    endif
+
+    # a 1x1 matrix is actually treated as a scalar
+    #    eval B["@key"]
+    #    eval rows(B["@key"])		# FIXME: not applicable
+    #    eval nelem(B["@key"])		# FIXME: not applicable
+    /*
+       if type == "matrix" && nelem(B["@key"]) == 1
+       type = "string"
+       endif
+    */
+    # TODO: Add dependency string_utils' strpos() function!
+    scalar type_id = strpos(types, type)
+    if type_id == 0
+        printf "\nError: Requested data type not supported by gretl."
+        return NA
+    endif
+
+    if typestr(typeof(B["@key"])) == types[type_id]
+        return 1
+    else
+        return 0
+    endif
+end function
+
+
+
 function scalar assertTrue (const scalar x)
-    /* Checks that bool(x) is True (=1).
+/* Checks that bool(x) is True (=1).
     Returns 1 if True, otherwise 0. */
 
     if !ok(x) || x < 0 || x > 1
@@ -24,7 +73,7 @@ end function
 
 
 function scalar assertFalse (const scalar x)
-    /* Checks that bool(x) is False (=0).
+/* Checks that bool(x) is False (=0).
     Returns 1 if flase indeed, otherwise 0. */
 
     if !ok(x) || x < 0 || x > 1
@@ -45,7 +94,7 @@ function scalar assertEqualStr (const string first,
     Returns 1 if true, otherwise 0. */
 
     if ( strlen(first) && !strlen(second) ) || \
-        ( !strlen(first) && strlen(second) )
+          ( !strlen(first) && strlen(second) )
         return 0
     elif !strlen(first) && !strlen(second)
         return 1
@@ -64,7 +113,7 @@ function scalar assertNotEqualStr (const string first,
     Returns 1 if true, otherwise 0. */
 
     if ( strlen(first) && !strlen(second) ) || \
-        ( !strlen(first) && strlen(second) )
+          ( !strlen(first) && strlen(second) )
         return 1
     elif !strlen(first) && !strlen(second)
         return 0
@@ -85,7 +134,7 @@ function scalar assertEqualNum (const scalar first,
     Returns 1 if true, otherwise 0. */
 
     if ( ok(first) && !ok(second) ) || \
-        ( !ok(first) && ok(second) )
+          ( !ok(first) && ok(second) )
         return 0
     elif !ok(first) && !ok(second)
         return 1
@@ -105,7 +154,7 @@ function scalar assertNotEqualNum (const scalar first,
     Returns 1 if true, otherwise 0. */
 
     if ( ok(first) && !ok(second) ) || \
-        ( !ok(first) && ok(second) )
+          ( !ok(first) && ok(second) )
         return 1
     elif !ok(first) && !ok(second)
         return 0

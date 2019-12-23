@@ -5,6 +5,177 @@ string WD = "/home/at/git/assertion"
 set workdir @WD
 include "./src/assertion.inp" --force
 
+nulldata 4 -p
+
+
+print "Start with assertIsType()"
+scalar scalar_1 = 4.3
+scalar scalar_2 = NA
+matrix mat_1 = {}
+matrix mat_2 = ones(1,1)
+matrix mat_3 = mnormal(2,2) * NA
+matrix mat_4 = mnormal(2,2)
+string str_1 = "ABC FT"
+string str_2 = ""
+string str_3 = "  "
+string str_4 = " &/()=/&%#*g7z89--.."
+bundle b_1 = defbundle("scalar_1", scalar_1, "str_1", str_1)
+bundle b_2 = defbundle("mat_1", mat_1, "str_1", str_1)
+series ser_1 = normal()
+series ser_2 = NA
+list L_1 = ser_1
+list L_2 = ser_1 ser_2
+matrices mats_1 = defarray(mat_1, mat_2)
+matrices mats_2 = defarray(mat_2)
+strings strarr_1 = array(0)
+strings strarr_2 = defarray(str_1, str_2, str_3, str_4)
+
+print "assertIsType() for positive cases"
+if assertIsType(defbundle("foo", scalar_1), "scalar") != 1
+    stop
+endif
+if assertIsType(defbundle("foo", scalar_2), "scalar") != 1
+    stop
+endif
+
+if assertIsType(defbundle("foo", mat_1), "matrix") != 1
+    stop
+endif
+# TODO:
+/*
+eval assertIsType(defbundle("foo", mat_2), "matrix")
+if assertIsType(defbundle("foo", mat_2), "matrix") != 1
+    stop
+endif
+*/
+if assertIsType(defbundle("foo", mat_3), "matrix") != 1
+    stop
+endif
+if assertIsType(defbundle("foo", mat_4), "matrix") != 1
+    stop
+endif
+
+if assertIsType(defbundle("foo", str_1), "string") != 1
+    stop
+endif
+if assertIsType(defbundle("foo", str_2), "string") != 1
+    stop
+endif
+if assertIsType(defbundle("foo", str_3), "string") != 1
+    stop
+endif
+if assertIsType(defbundle("foo", str_4), "string") != 1
+    stop
+endif
+
+if assertIsType(defbundle("foo", b_1), "bundle") != 1
+    stop
+endif
+if assertIsType(defbundle("foo", b_2), "bundle") != 1
+    stop
+endif
+
+if assertIsType(defbundle("foo", ser_1), "series") != 1
+    stop
+endif
+if assertIsType(defbundle("foo", ser_2), "series") != 1
+    stop
+endif
+
+if assertIsType(defbundle("foo", L_1), "list") != 1
+    stop
+endif
+if assertIsType(defbundle("foo", L_2), "list") != 1
+    stop
+endif
+
+if assertIsType(defbundle("foo", mats_1), "array") != 1
+    stop
+endif
+if assertIsType(defbundle("foo", mats_2), "array") != 1
+    stop
+endif
+if assertIsType(defbundle("foo", strarr_1), "array") != 1
+    stop
+endif
+if assertIsType(defbundle("foo", strarr_2), "array") != 1
+    stop
+endif
+
+
+print "assertIsType() for negative cases"
+if assertIsType(defbundle("foo", scalar_1), "series") != 0
+    stop
+endif
+if assertIsType(defbundle("foo", scalar_2), "matrix") != 0
+    stop
+endif
+
+if assertIsType(defbundle("foo", mat_1), "scalar") != 0
+    stop
+endif
+# TODO:
+/*
+eval assertIsType(defbundle("foo", mat_2), "matrix")
+if assertIsType(defbundle("foo", mat_2), "matrix") != 1
+    stop
+endif
+*/
+if assertIsType(defbundle("foo", mat_3), "list") != 0
+    stop
+endif
+if assertIsType(defbundle("foo", mat_4), "array") != 0
+    stop
+endif
+
+if assertIsType(defbundle("foo", str_1), "matrix") != 0
+    stop
+endif
+if assertIsType(defbundle("foo", str_2), "series") != 0
+    stop
+endif
+if assertIsType(defbundle("foo", str_3), "list") != 0
+    stop
+endif
+if assertIsType(defbundle("foo", str_4), "array") != 0
+    stop
+endif
+
+if assertIsType(defbundle("foo", b_1), "array") != 0
+    stop
+endif
+if assertIsType(defbundle("foo", b_2), "scalar") != 0
+    stop
+endif
+
+if assertIsType(defbundle("foo", ser_1), "matrix") != 0
+    stop
+endif
+if assertIsType(defbundle("foo", ser_2), "array") != 0
+    stop
+endif
+
+if assertIsType(defbundle("foo", L_1), "series") != 0
+    stop
+endif
+if assertIsType(defbundle("foo", L_2), "array") != 0
+    stop
+endif
+
+if assertIsType(defbundle("foo", mats_1), "scalar") != 0
+    stop
+endif
+if assertIsType(defbundle("foo", mats_2), "series") != 0
+    stop
+endif
+if assertIsType(defbundle("foo", strarr_1), "list") != 0
+    stop
+endif
+if assertIsType(defbundle("foo", strarr_2), "string") != 0
+    stop
+endif
+
+
 
 print "Start with assertTrue()"
 if assertTrue(1) != 1
