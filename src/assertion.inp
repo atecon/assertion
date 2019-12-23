@@ -1,19 +1,49 @@
-/*
-   def test_upper(self):
-   self.assertEqual('foo'.upper(), 'FOO')
-
-   def test_isupper(self):
-   self.assertTrue('FOO'.isupper())
-   self.assertFalse('Foo'.isupper())
-*/
 
 include string_utils.gfn --force		# FIXME: consider dependency!
 
 
-# TODO: Finish
-function scalar assertIsType (const bundle B,
-                              string type "scalar, series, matrix, string, bundle, array, list.")
+# FIXME: A lot of code redundancy with assertIsType()
+function scalar assertIsNotType (const bundle B,
+                                 string type "scalar, series, matrix, string, bundle, array, list.")
+    /* Checks that element in bundle B is not of a specified type.
+    Returns 1 if true, otherwise 0. */
 
+    strings types = get_gretl_dtypes()
+    scalar type_id = strpos(types, type)
+
+    if nelem(B) != 1
+        printf "\nError: Bundle 'B' must include a single element to check."
+        return NA
+    else
+        key = getkeys(B)[1]
+    endif
+    
+    if type_id == 0
+        printf "\nError: Requested data type not supported by gretl."
+        return NA
+    endif
+
+    # a 1x1 matrix is actually treated as a scalar and vice versa
+    if type == "matrix" 
+        catch scalar nrows = rows(B["@key"])
+        if !$error
+            if (cols(B["@key"]) + rows(B["@key"])) == 2
+                type = "scalar"
+                type_id = strpos(types, type)
+            endif
+        endif
+    endif
+
+    if typestr(typeof(B["@key"])) == types[type_id]
+        return 0
+    else
+        return 1
+    endif
+end function
+
+
+function strings get_gretl_dtypes (void)
+    return defarray("scalar", "series", "matrix", "string", "bundle", "array", "list")
 end function
 
 
@@ -22,7 +52,8 @@ function scalar assertIsType (const bundle B,
     /* Checks that element in bundle B is of a specified type.
     Returns 1 if true, otherwise 0. */
 
-    strings types = defarray("scalar", "series", "matrix", "string", "bundle", "array", "list")
+    strings types = get_gretl_dtypes()
+    scalar type_id = strpos(types, type)
 
     if nelem(B) != 1
         printf "\nError: Bundle 'B' must include a single element to check."
@@ -30,21 +61,21 @@ function scalar assertIsType (const bundle B,
     else
         key = getkeys(B)[1]
     endif
-
-    # a 1x1 matrix is actually treated as a scalar
-    #    eval B["@key"]
-    #    eval rows(B["@key"])		# FIXME: not applicable
-    #    eval nelem(B["@key"])		# FIXME: not applicable
-    /*
-       if type == "matrix" && nelem(B["@key"]) == 1
-       type = "string"
-       endif
-    */
-    # TODO: Add dependency string_utils' strpos() function!
-    scalar type_id = strpos(types, type)
+    
     if type_id == 0
         printf "\nError: Requested data type not supported by gretl."
         return NA
+    endif
+
+    # a 1x1 matrix is actually treated as a scalar and vice versa
+    if type == "matrix" 
+        catch scalar nrows = rows(B["@key"])
+        if !$error
+            if (cols(B["@key"]) + rows(B["@key"])) == 2
+                type = "scalar"
+                type_id = strpos(types, type)
+            endif
+        endif
     endif
 
     if typestr(typeof(B["@key"])) == types[type_id]

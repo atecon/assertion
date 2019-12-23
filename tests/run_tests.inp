@@ -41,13 +41,9 @@ endif
 if assertIsType(defbundle("foo", mat_1), "matrix") != 1
     stop
 endif
-# TODO:
-/*
-eval assertIsType(defbundle("foo", mat_2), "matrix")
 if assertIsType(defbundle("foo", mat_2), "matrix") != 1
     stop
 endif
-*/
 if assertIsType(defbundle("foo", mat_3), "matrix") != 1
     stop
 endif
@@ -107,20 +103,16 @@ print "assertIsType() for negative cases"
 if assertIsType(defbundle("foo", scalar_1), "series") != 0
     stop
 endif
-if assertIsType(defbundle("foo", scalar_2), "matrix") != 0
+if assertIsType(defbundle("foo", scalar_2), "matrix") != 1
     stop
 endif
 
 if assertIsType(defbundle("foo", mat_1), "scalar") != 0
     stop
 endif
-# TODO:
-/*
-eval assertIsType(defbundle("foo", mat_2), "matrix")
-if assertIsType(defbundle("foo", mat_2), "matrix") != 1
+if assertIsType(defbundle("foo", mat_2), "string") != 0
     stop
 endif
-*/
 if assertIsType(defbundle("foo", mat_3), "list") != 0
     stop
 endif
@@ -172,6 +164,75 @@ if assertIsType(defbundle("foo", strarr_1), "list") != 0
     stop
 endif
 if assertIsType(defbundle("foo", strarr_2), "string") != 0
+    stop
+endif
+
+
+print "assertIsNotType()"
+if assertIsNotType(defbundle("foo", scalar_1), "scalar") != 0
+    stop
+endif
+if assertIsNotType(defbundle("foo", scalar_2), "matrix") != 0
+    # scalar treated like matrix
+    stop
+endif
+if assertIsNotType(defbundle("foo", mat_1), "matrix") != 0
+    stop
+endif
+if assertIsNotType(defbundle("foo", mat_2), "matrix") != 0
+    stop
+endif
+if assertIsNotType(defbundle("foo", mat_3), "list") != 1
+    stop
+endif
+if assertIsNotType(defbundle("foo", mat_4), "matrix") != 0
+    stop
+endif
+
+if assertIsNotType(defbundle("foo", str_1), "array") != 1
+    stop
+endif
+if assertIsNotType(defbundle("foo", str_2), "matrix") != 1
+    stop
+endif
+if assertIsNotType(defbundle("foo", str_3), "string") != 0
+    stop
+endif
+if assertIsNotType(defbundle("foo", str_4), "list") != 1
+    stop
+endif
+
+if assertIsNotType(defbundle("foo", b_1), "bundle") != 0
+    stop
+endif
+if assertIsNotType(defbundle("foo", b_2), "series") != 1
+    stop
+endif
+
+if assertIsNotType(defbundle("foo", ser_1), "scalar") != 1
+    stop
+endif
+if assertIsNotType(defbundle("foo", ser_2), "series") != 0
+    stop
+endif
+
+if assertIsNotType(defbundle("foo", L_1), "list") != 0
+    stop
+endif
+if assertIsNotType(defbundle("foo", L_2), "matrix") != 1
+    stop
+endif
+
+if assertIsNotType(defbundle("foo", mats_1), "array") != 0
+    stop
+endif
+if assertIsNotType(defbundle("foo", mats_2), "matrix") != 1
+    stop
+endif
+if assertIsNotType(defbundle("foo", strarr_1), "string") != 1
+    stop
+endif
+if assertIsNotType(defbundle("foo", strarr_2), "list") != 1
     stop
 endif
 
