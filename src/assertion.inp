@@ -2,6 +2,8 @@
 include string_utils.gfn --force		# FIXME: consider dependency!
 
 
+
+
 # FIXME: A lot of code redundancy with assertIsType()
 function scalar assertIsNotType (const bundle B,
                                  string type "scalar, series, matrix, string, bundle, array, list.")
@@ -24,26 +26,13 @@ function scalar assertIsNotType (const bundle B,
     endif
 
     # a 1x1 matrix is actually treated as a scalar and vice versa
-    if type == "matrix" 
-        catch scalar nrows = rows(B["@key"])
-        if !$error
-            if (cols(B["@key"]) + rows(B["@key"])) == 2
-                type = "scalar"
-                type_id = strpos(types, type)
-            endif
-        endif
-    endif
+    cast_onexone_matrix_to_scalar(B, key, type, types, &type_id)
 
     if typestr(typeof(B["@key"])) == types[type_id]
         return 0
     else
         return 1
     endif
-end function
-
-
-function strings get_gretl_dtypes (void)
-    return defarray("scalar", "series", "matrix", "string", "bundle", "array", "list")
 end function
 
 
@@ -68,15 +57,7 @@ function scalar assertIsType (const bundle B,
     endif
 
     # a 1x1 matrix is actually treated as a scalar and vice versa
-    if type == "matrix" 
-        catch scalar nrows = rows(B["@key"])
-        if !$error
-            if (cols(B["@key"]) + rows(B["@key"])) == 2
-                type = "scalar"
-                type_id = strpos(types, type)
-            endif
-        endif
-    endif
+    cast_onexone_matrix_to_scalar(B, key, type, types, &type_id)
 
     if typestr(typeof(B["@key"])) == types[type_id]
         return 1
@@ -85,13 +66,45 @@ function scalar assertIsType (const bundle B,
     endif
 end function
 
+function void cast_onexone_matrix_to_scalar (const bundle B,
+                   const string key,
+                   const string type,
+                   const strings types,
+                   scalar *type_id)
+    /* Helper function for assertIs/Not/Type()*/
 
+    if type == "matrix"
+        catch scalar nrows = rows(B["@key"])
+        if !$error
+            if (cols(B["@key"]) + rows(B["@key"])) == 2
+                type_id = strpos(types, "scalar")
+            endif
+        endif
+    endif
+end function
+
+
+function strings get_gretl_dtypes (void)
+    return defarray("scalar", "series", "matrix", "string", "bundle", "array", "list")
+end function
+
+
+function scalar isbool (const scalar x)
+    /* Helper function for assertTrue/False(). */
+
+    if !ok(x) || x < 0 || x > 1
+        return 0
+    else
+        return 1
+    endif
+end function
+    
 
 function scalar assertTrue (const scalar x)
 /* Checks that bool(x) is True (=1).
     Returns 1 if True, otherwise 0. */
 
-    if !ok(x) || x < 0 || x > 1
+    if !isbool(x)
         return NA
     endif
 
@@ -107,7 +120,7 @@ function scalar assertFalse (const scalar x)
 /* Checks that bool(x) is False (=0).
     Returns 1 if flase indeed, otherwise 0. */
 
-    if !ok(x) || x < 0 || x > 1
+    if !isbool(x)
         return NA
     endif
 
@@ -144,17 +157,29 @@ function scalar assertNotEqualStr (const string first,
 end function
 
 
-
-function scalar assertEqualNum (const scalar first,
-                                const scalar second)
-    /* Checks for numerical values that a == b.
-    Returns 1 if true, otherwise 0. */
+function scalar valid_first_and_second (const scalar first,
+                                        const scalar second)
+    /* Helper function for assert(Not)EqualNum(). */
 
     if ( ok(first) && !ok(second) ) || \
           ( !ok(first) && ok(second) )
         return 0
     elif !ok(first) && !ok(second)
         return 1
+    else
+        return 2
+    endif
+end function
+
+
+function scalar assertEqualNum (const scalar first,
+                                const scalar second)
+    /* Checks for numerical values that a == b.
+    Returns 1 if true, otherwise 0. */
+
+    scalar check = valid_first_and_second(first, second)
+    if check != 2
+        return check
     endif
 
     if first == second
@@ -170,10 +195,10 @@ function scalar assertNotEqualNum (const scalar first,
     /* Checks for numerical values that a != b.
     Returns 1 if true, otherwise 0. */
 
-    if ( ok(first) && !ok(second) ) || \
-          ( !ok(first) && ok(second) )
+    scalar check = valid_first_and_second(first, second)
+    if check == 0
         return 1
-    elif !ok(first) && !ok(second)
+    elif check == 1
         return 0
     endif
 
