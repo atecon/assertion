@@ -124,13 +124,6 @@ function scalar assertEqualStr (const string first,
     /* Checks for string values that a == b.
     Returns 1 if true, otherwise 0. */
 
-    if ( strlen(first) && !strlen(second) ) || \
-          ( !strlen(first) && strlen(second) )
-        return 0
-    elif !strlen(first) && !strlen(second)
-        return 1
-    endif
-
     if first == second
         return 1
     else
@@ -142,13 +135,6 @@ function scalar assertNotEqualStr (const string first,
                                    const string second)
     /* Checks for string values that a != b.
     Returns 1 if true, otherwise 0. */
-
-    if ( strlen(first) && !strlen(second) ) || \
-          ( !strlen(first) && strlen(second) )
-        return 1
-    elif !strlen(first) && !strlen(second)
-        return 0
-    endif
 
     if first == second
         return 0
