@@ -239,37 +239,37 @@ endif
 
 
 print "Start with assertTrue()"
-if assertTrue(1) != 1
+if !assertTrue(1)
     stop
 endif
-if assertTrue(0) != 0
+if assertTrue(0)
     stop
 endif
-if ok(assertTrue(NA)) != 0
+if ok(assertTrue(NA))
     stop
 endif
-if ok(assertTrue(2)) != 0
+if ok(assertTrue(2))
     stop
 endif
-if ok(assertTrue(-1)) != 0
+if ok(assertTrue(-1))
     stop
 endif
 
 
 print "Start with assertFalse()"
-if assertFalse(1) != 0
+if assertFalse(1)
     stop
 endif
-if assertFalse(0) != 1
+if !assertFalse(0)
     stop
 endif
-if ok(assertFalse(NA)) != 0
+if ok(assertFalse(NA))
     stop
 endif
-if ok(assertFalse(2)) != 0
+if ok(assertFalse(2))
     stop
 endif
-if ok(assertFalse(-1)) != 0
+if ok(assertFalse(-1))
     stop
 endif
 
@@ -317,56 +317,107 @@ endif
 
 
 
-
 print "Start with assertEqualNum()"
-if assertEqualNum(22, 22) != 1
+if !assertEqualNum(22, 22)
     stop
 endif
-if assertEqualNum(-34, 34) != 0
+if assertEqualNum(1.5, 1.49)
     stop
 endif
-if assertEqualNum(NA, 34) != 0
+if assertEqualNum(-34, 34)
     stop
 endif
-if assertEqualNum(34, NA) != 0
+if ok(assertEqualNum(NA, 34))
     stop
 endif
-if assertEqualNum(NA, NA) != 1
+if ok(assertEqualNum(34, NA))
     stop
 endif
-if assertEqualNum(-1, -1.001) != 0
+if ok(assertEqualNum(NA, NA))
     stop
 endif
-if assertEqualNum(-1, -1.001) != 0
+if assertEqualNum(-1, -1.001)
     stop
 endif
-if assertEqualNum(log(22), log(0)) != 0
+if ok(assertEqualNum(log(22), log(0)))
     stop
 endif
 
 
 print "Start with assertNotEqualNum()"
-if assertNotEqualNum(22, 22) != 0
+if assertNotEqualNum(22, 22)
     stop
 endif
-if assertNotEqualNum(-34, 34) != 1
+if !assertNotEqualNum(-34, 34)
     stop
 endif
-if assertNotEqualNum(NA, 34) != 1
+if ok(assertNotEqualNum(NA, 34))
     stop
 endif
-if assertNotEqualNum(34, NA) != 1
+if ok(assertNotEqualNum(34, NA))
     stop
 endif
-if assertNotEqualNum(NA, NA) != 0
+if ok(assertNotEqualNum(NA, NA))
     stop
 endif
-if assertNotEqualNum(-1, -1.001) != 1
+if !assertNotEqualNum(-1, -1.001)
     stop
 endif
-if assertNotEqualNum(-1, -1.001) != 1
+
+
+print "Start with assertGreaterEqualNum()"
+if !assertGreaterEqualNum(22, 22)
     stop
 endif
+if assertGreaterEqualNum(-34, 34)
+    stop
+endif
+if !assertGreaterEqualNum(34, -34)
+    stop
+endif
+if ok(assertGreaterEqualNum(NA, 34))
+    stop
+endif
+if ok(assertGreaterEqualNum(34, NA))
+    stop
+endif
+if ok(assertGreaterEqualNum(NA, NA))
+    stop
+endif
+if !assertGreaterEqualNum(-1, -1.001)
+    stop
+endif
+if ok(assertGreaterEqualNum(log(22), log(0)))
+    stop
+endif
+
+
+print "Start with assertLessEqualNum()"
+if !assertLessEqualNum(22, 22)
+    stop
+endif
+if !assertLessEqualNum(-34, 34)
+    stop
+endif
+if assertLessEqualNum(34, -34)
+    stop
+endif
+if ok(assertLessEqualNum(NA, 34))
+    stop
+endif
+if ok(assertLessEqualNum(34, NA))
+    stop
+endif
+if ok(assertLessEqualNum(NA, NA))
+    stop
+endif
+if assertLessEqualNum(-1, -1.001)
+    stop
+endif
+if ok(assertLessEqualNum(log(22), log(0)))
+    stop
+endif
+
 
 
 printf "\nInfo: All tests passed.\n"

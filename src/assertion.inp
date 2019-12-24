@@ -4,7 +4,6 @@ include string_utils.gfn --force		# FIXME: consider dependency!
 
 
 
-# FIXME: A lot of code redundancy with assertIsType()
 function scalar assertIsNotType (const bundle B,
                                  string type "scalar, series, matrix, string, bundle, array, list.")
     /* Checks that element in bundle B is not of a specified type.
@@ -161,13 +160,44 @@ function scalar valid_first_and_second (const scalar first,
                                         const scalar second)
     /* Helper function for assert(Not)EqualNum(). */
 
-    if ( ok(first) && !ok(second) ) || \
-          ( !ok(first) && ok(second) )
-        return 0
-    elif !ok(first) && !ok(second)
+    if ok(first) && ok(second)
         return 1
     else
-        return 2
+        return 0
+    endif
+end function
+
+
+function scalar assertGreaterEqualNum (const scalar first,
+                                       const scalar second)
+    /* Checks for numerical values that a >= b.
+    Returns 1 if true, otherwise 0. */
+
+    if !valid_first_and_second(first, second)
+        return NA
+    endif
+
+    if first >= second
+        return 1
+    else
+        return 0
+    endif
+end function
+
+
+function scalar assertLessEqualNum (const scalar first,
+                                   const scalar second)
+    /* Checks for numerical values that a <= b.
+    Returns 1 if true, otherwise 0. */
+
+    if !valid_first_and_second(first, second)
+        return NA
+    endif
+
+    if first <= second
+        return 1
+    else
+        return 0
     endif
 end function
 
@@ -175,11 +205,11 @@ end function
 function scalar assertEqualNum (const scalar first,
                                 const scalar second)
     /* Checks for numerical values that a == b.
-    Returns 1 if true, otherwise 0. */
+    Returns 1 if true, otherwise 0. If either first and/or
+    are NA, return NA. */
 
-    scalar check = valid_first_and_second(first, second)
-    if check != 2
-        return check
+    if !valid_first_and_second(first, second)
+        return NA
     endif
 
     if first == second
@@ -195,11 +225,8 @@ function scalar assertNotEqualNum (const scalar first,
     /* Checks for numerical values that a != b.
     Returns 1 if true, otherwise 0. */
 
-    scalar check = valid_first_and_second(first, second)
-    if check == 0
-        return 1
-    elif check == 1
-        return 0
+    if !valid_first_and_second(first, second)
+        return NA
     endif
 
     if first == second
