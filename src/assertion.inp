@@ -1,6 +1,4 @@
-
 include string_utils.gfn --force		# FIXME: consider dependency!
-
 
 
 
@@ -18,7 +16,7 @@ function scalar assertIsNotType (const bundle B,
     else
         key = getkeys(B)[1]
     endif
-    
+
     if type_id == 0
         printf "\nError: Requested data type not supported by gretl."
         return NA
@@ -49,7 +47,7 @@ function scalar assertIsType (const bundle B,
     else
         key = getkeys(B)[1]
     endif
-    
+
     if type_id == 0
         printf "\nError: Requested data type not supported by gretl."
         return NA
@@ -66,10 +64,10 @@ function scalar assertIsType (const bundle B,
 end function
 
 function void cast_onexone_matrix_to_scalar (const bundle B,
-                   const string key,
-                   const string type,
-                   const strings types,
-                   scalar *type_id)
+                                             const string key,
+                                             const string type,
+                                             const strings types,
+                                             scalar *type_id)
     /* Helper function for assertIs/Not/Type()*/
 
     if type == "matrix"
@@ -97,7 +95,7 @@ function scalar isbool (const scalar x)
         return 1
     endif
 end function
-    
+
 
 function scalar assertTrue (const scalar x)
 /* Checks that bool(x) is True (=1).
@@ -171,7 +169,8 @@ end function
 function scalar assertGreaterEqualNum (const scalar first,
                                        const scalar second)
     /* Checks for numerical values that a >= b.
-    Returns 1 if true, otherwise 0. */
+       Returns 1 if true, otherwise 0. If either first and/or
+    are NA, return NA. */
 
     if !valid_first_and_second(first, second)
         return NA
@@ -186,9 +185,10 @@ end function
 
 
 function scalar assertLessEqualNum (const scalar first,
-                                   const scalar second)
+                                    const scalar second)
     /* Checks for numerical values that a <= b.
-    Returns 1 if true, otherwise 0. */
+       Returns 1 if true, otherwise 0. If either first and/or
+    are NA, return NA. */
 
     if !valid_first_and_second(first, second)
         return NA
@@ -205,7 +205,7 @@ end function
 function scalar assertEqualNum (const scalar first,
                                 const scalar second)
     /* Checks for numerical values that a == b.
-    Returns 1 if true, otherwise 0. If either first and/or
+       Returns 1 if true, otherwise 0. If either first and/or
     are NA, return NA. */
 
     if !valid_first_and_second(first, second)
@@ -223,13 +223,55 @@ end function
 function scalar assertNotEqualNum (const scalar first,
                                    const scalar second)
     /* Checks for numerical values that a != b.
-    Returns 1 if true, otherwise 0. */
+       Returns 1 if true, otherwise 0. If either first and/or
+    are NA, return NA.*/
 
     if !valid_first_and_second(first, second)
         return NA
     endif
 
     if first == second
+        return 0
+    else
+        return 1
+    endif
+end function
+
+
+
+function scalar assertAlmostEqualNum (const scalar first,
+                                      const scalar second,
+                                      const int places[1::7] "round up to decimal place")
+    /* Checks for numerical values that round(a-b) == 0.
+       Returns 1 if true, otherwise 0. If either first and/or
+       are NA, return NA. Decimal places are not supported, yet
+    as not built-in gretl's round() function. */
+
+    if !valid_first_and_second(first, second)
+        return NA
+    endif
+
+    if round(first - second) == 0
+        return 1
+    else
+        return 0
+    endif
+end function
+
+
+function scalar assertNotAlmostEqualNum (const scalar first,
+                                         const scalar second,
+                                         const int places[1::7] "round up to decimal place")
+    /* Checks for numerical values that a != b.
+       Returns 1 if true, otherwise 0. If either first and/or
+       are NA, return NA. Decimal places are not supported, yet
+    as not built-in gretl's round() function. */
+
+    if !valid_first_and_second(first, second)
+        return NA
+    endif
+
+    if round(first - second) == 0
         return 0
     else
         return 1

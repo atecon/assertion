@@ -420,4 +420,101 @@ endif
 
 
 
+print "Start with assertAlmostEqualNum()"
+if assertAlmostEqualNum(0.5, 1)
+    stop
+endif
+if !assertAlmostEqualNum(0.51, 1)
+    stop
+endif
+if !assertAlmostEqualNum(0.6, 1)
+    stop
+endif
+if assertAlmostEqualNum(1, 0.5)
+    stop
+endif
+if !assertAlmostEqualNum(1, 0.51)
+    stop
+endif
+if !assertAlmostEqualNum(1, 0.6)
+    stop
+endif
+if assertAlmostEqualNum(-0.5, -1)
+    stop
+endif
+if !assertAlmostEqualNum(-0.51, -1)
+    stop
+endif
+if !assertAlmostEqualNum(-0.6, -1)
+    stop
+endif
+if assertAlmostEqualNum(-1, -0.5)
+    stop
+endif
+if !assertAlmostEqualNum(-1, -0.51)
+    stop
+endif
+if !assertAlmostEqualNum(-1, -0.6)
+    stop
+endif
+if ok(assertAlmostEqualNum(0.5, NA))
+    stop
+endif
+if ok(assertAlmostEqualNum(NA, 1))
+    stop
+endif
+if ok(assertAlmostEqualNum(NA, NA))
+    stop
+endif
+
+
+print "Start with assertNotAlmostEqualNum()"
+if !assertNotAlmostEqualNum(0.5, 1)
+    stop
+endif
+if assertNotAlmostEqualNum(0.51, 1)
+    stop
+endif
+if assertNotAlmostEqualNum(0.6, 1)
+    stop
+endif
+if !assertNotAlmostEqualNum(1, 0.5)
+    stop
+endif
+if assertNotAlmostEqualNum(1, 0.51)
+    stop
+endif
+if assertNotAlmostEqualNum(1, 0.6)
+    stop
+endif
+if !assertNotAlmostEqualNum(-0.5, -1)
+    stop
+endif
+if assertNotAlmostEqualNum(-0.51, -1)
+    stop
+endif
+if assertNotAlmostEqualNum(-0.6, -1)
+    stop
+endif
+if !assertNotAlmostEqualNum(-1, -0.5)
+    stop
+endif
+if assertNotAlmostEqualNum(-1, -0.51)
+    stop
+endif
+if assertNotAlmostEqualNum(-1, -0.6)
+    stop
+endif
+if ok(assertNotAlmostEqualNum(0.5, NA))
+    stop
+endif
+if ok(assertNotAlmostEqualNum(NA, 1))
+    stop
+endif
+if ok(assertNotAlmostEqualNum(NA, NA))
+    stop
+endif
+
+
+
 printf "\nInfo: All tests passed.\n"
