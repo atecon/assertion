@@ -1,0 +1,43 @@
+set verbose off
+clear
+
+include assertion.gfn --force
+
+scalar scalar_1 = NA
+scalar scalar_2 = -4.7
+
+eval assertTrue(ok(scalar_1))
+eval assertTrue(ok(scalar_2))
+
+eval assertFalse(ok(scalar_1))
+eval assertFalse(ok(scalar_2))
+
+
+# assertEqualStr():
+string str_1 = "ABC"
+string str_2 = "ABC"
+string str_3 = "_ABC "
+eval assertEqualStr(str_1, str_2)
+eval assertEqualStr(str_1, str_3)
+
+
+# assertEqualNum():
+scalar scalar_1 = -2.7
+scalar scalar_2 = -2.7
+scalar scalar_3 = 3.5
+eval assertEqualNum(scalar_1, scalar_2)
+eval assertEqualNum(scalar_1, scalar_3)
+
+# assertGreaterEqualNum():
+scalar scalar_1 = -2.7
+scalar scalar_2 = -2.7
+scalar scalar_3 = 3.5
+eval assertGreaterEqualNum(scalar_1, scalar_2)
+eval assertGreaterEqualNum(scalar_1, scalar_3)
+
+# assertAlmostEqualNum():
+scalar scalar_1 = 1
+scalar scalar_2 = 0.5
+scalar scalar_3 = 0.6
+eval assertAlmostEqualNum(scalar_1, scalar_2)
+eval assertAlmostEqualNum(scalar_1, scalar_3)

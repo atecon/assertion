@@ -1,0 +1,154 @@
+Written by Artur Tarassow (please ask questions and report bugs on the gretl
+mailing list if possible).
+
+Source code and test script(s) can be found here:
+https://github.com/atecon/assertion
+
+Collection of assert-functions for writing (unit-)test cases and to detect test
+failure. Assert is a method useful in determining Pass or Fail status of a test
+case.
+
+Currently, the most commonly used methods are supported.
+
+
+
+assertEqualNum(first, second):
+--------------
+Checks for numerical values that first == second (equal).
+
+Arguments:	first 	(scalar)
+		second	(scalar)
+
+Return:
+Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA.
+-----------------------------------------------------------------------
+
+assertNotEqualNum(first, second):
+--------------
+Checks for numerical values that first != second (not equal).
+
+Arguments:	first 	(scalar)
+		second	(scalar)
+
+Return:
+Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA.
+-----------------------------------------------------------------------
+
+
+assertGreaterEqualNum(first, second):
+--------------
+Checks for numerical values that first >= second (greater-or-equal).
+
+Arguments:	first 	(scalar)
+		second	(scalar)
+
+Return:
+Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA.
+-----------------------------------------------------------------------
+
+assertLessEqualNum(first, second):
+--------------
+Checks for numerical values that first <= second (less-or-equal).
+
+Arguments:	first 	(scalar)
+		second	(scalar)
+
+Return:
+Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA.
+-----------------------------------------------------------------------
+
+assertAlmostEqualNum(first, second):
+--------------
+Checks for numerical values that round(first - second) == 0.
+
+Arguments:	first 	(scalar)
+		second	(scalar)
+
+Return:
+Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA.
+-----------------------------------------------------------------------
+
+assertNotAlmostEqualNum(first, second):
+--------------
+Checks for numerical values that round(first - second) != 0.
+
+Arguments:	first 	(scalar)
+		second	(scalar)
+
+Return:
+Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA.
+-----------------------------------------------------------------------
+
+assertEqualStr(first, second):
+--------------
+Checks for string-valued variables that first == second (equal).
+
+Arguments:	first 	(string)
+		second	(string)
+
+Return:
+Returns 1 if true, otherwise 0 (false).
+-----------------------------------------------------------------------
+
+assertNotEqualStr(first, second):
+--------------
+Checks for string-valued variables that first != second (not equal).
+
+Arguments:	first 	(string)
+		second	(string)
+
+Return:
+Returns 1 if true, otherwise 0 (false).
+-----------------------------------------------------------------------
+
+assertTrue(x):
+--------------
+Checks that bool(x) is True (=1).
+
+Arguments:	x		(scalar)
+
+Return:
+Returns 1 if True, otherwise 0 (False). If x is NA, return NA.
+-----------------------------------------------------------------------
+
+assertFalse(x):
+--------------
+Checks that bool(x) is False (=0).
+
+Arguments:	x		(scalar)
+
+Return:
+Returns 1 if False, otherwise 0 (True). If x is NA, return NA.
+-----------------------------------------------------------------------
+
+assertIsType(B, type):
+--------------
+Checks that element in bundle B is of a specific type.
+
+Arguments:	B		(bundle with single element)
+		type 	(string, either: "scalar, series, matrix, string,
+			bundle, array, list.")
+
+Return:
+Returns 1 if true, otherwise 0 (false). If "type" is not supported data typ,
+return NA.
+-----------------------------------------------------------------------
+
+assertIsNotType(B, type):
+--------------
+Checks that element in bundle B is not of a specific type.
+
+Arguments:	B		(bundle with single element)
+		type 	(string, either: "scalar, series, matrix, string, bundle,
+			array, list.")
+
+Return:
+Returns 1 if true, otherwise 0 (false). If "type" is not supported data typ,
+return NA.
+-----------------------------------------------------------------------
+
+
+Changelog:
+- v0.5, December 2019:
+    + initial release
+

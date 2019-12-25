@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gretl-functions>
+<gretl-function-package name="assertion" no-data-ok="true" minver="2018a">
+<author email="atecon@posteo.de">Artur Tarassow</author>
+<version>0.5</version>
+<date>2019-12-25</date>
+<description>Assert functions for verifying expectationa and values in gretl tests</description>
+<tags>C81</tags>
+<help>
+Written by Artur Tarassow (please ask questions and report bugs on the gretl mailing list if possible).
+
+Source code and test script(s) can be found here:
+https://github.com/atecon/assertion
+
+Collection of assert-functions for writing (unit-)test cases and to detect test failure. Assert is a method useful in determining Pass or Fail status of a test case.
+
+Currently, the most commonly used methods are supported.
+
+
+
+assertEqualNum(first, second):
+--------------
+Checks for numerical values that first == second (equal).
+
+Arguments:	first 	(scalar)
+			second	(scalar)
+
+Return:
+Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA.
+-----------------------------------------------------------------------
+
+assertNotEqualNum(first, second):
+--------------
+Checks for numerical values that first != second (not equal).
+
+Arguments:	first 	(scalar)
+			second	(scalar)
+
+Return:
+Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA.
+-----------------------------------------------------------------------
+
+
+assertGreaterEqualNum(first, second):
+--------------
+Checks for numerical values that first &gt;= second (equal).
+
+Arguments:	first 	(scalar)
+			second	(scalar)
+
+Return:
+Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA.
+-----------------------------------------------------------------------
+
+assertLessEqualNum(first, second):
+--------------
+Checks for numerical values that first &lt;= second (not equal).
+
+Arguments:	first 	(scalar)
+			second	(scalar)
+
+Return:
+Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA.
+-----------------------------------------------------------------------
+
+assertAlmostEqualNum(first, second):
+--------------
+Checks for numerical values that round(first - second) == 0.
+
+Arguments:	first 	(scalar)
+			second	(scalar)
+
+Return:
+Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA.
+-----------------------------------------------------------------------
+
+assertNotAlmostEqualNum(first, second):
+--------------
+Checks for numerical values that round(first - second) != 0.
+
+Arguments:	first 	(scalar)
+			second	(scalar)
+
+Return:
+Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA.
+-----------------------------------------------------------------------
+
+assertEqualStr(first, second):
+--------------
+Checks for string-valued variables that first == second (equal).
+
+Arguments:	first 	(string)
+			second	(string)
+
+Return:
+Returns 1 if true, otherwise 0 (false).
+-----------------------------------------------------------------------
+
+assertNotEqualStr(first, second):
+--------------
+Checks for string-valued variables that first == second (not equal).
+
+Arguments:	first 	(string)
+			second	(string)
+
+Return:
+Returns 1 if true, otherwise 0 (false).
+-----------------------------------------------------------------------
+
+assertTrue(x):
+--------------
+Checks that bool(x) is True (=1).
+
+Arguments:	x		(scalar)
+
+Return:
+Returns 1 if True, otherwise 0 (False). If x is NA, return NA.
+-----------------------------------------------------------------------
+
+assertFalse(x):
+--------------
+Checks that bool(x) is False (=0).
+
+Arguments:	x		(scalar)
+
+Return:
+Returns 1 if False, otherwise 0 (True). If x is NA, return NA.
+-----------------------------------------------------------------------
+
+assertIsType(B, type):
+--------------
+Checks that element in bundle B is of a specific type.
+
+Arguments:	B		(bundle with single element)
+			type 	(string, either: &quot;scalar, series, matrix, string, bundle, array, list.&quot;)
+
+Return:
+Returns 1 if true, otherwise 0 (false). If &quot;type&quot; is not supported data typ, return NA.
+-----------------------------------------------------------------------
+
+assertIsNotType(B, type):
+--------------
+Checks that element in bundle B is not of a specific type.
+
+Arguments:	B		(bundle with single element)
+			type 	(string, either: &quot;scalar, series, matrix, string, bundle, array, list.&quot;)
+
+Return:
+Returns 1 if true, otherwise 0 (false). If &quot;type&quot; is not supported data typ, return NA.
+-----------------------------------------------------------------------
+
+
+Changelog:
+- v0.5, December 2019:
+    + initial release
+</help>
+<depends count="1">
+string_utils </depends>
+<gretl-function name="assertIsType" type="scalar">
+ <params count="2">
+  <param name="B" type="bundle" const="true"/>
+  <param name="type" type="string">
+<description>scalar, series, matrix, string, bundle, array, list.</description>
+  </param>
+ </params>
+<code>/* Checks that element in bundle B is of a specific type.
+Returns 1 if true, otherwise 0. */
+strings types = get_gretl_dtypes()
+scalar type_id = strpos(types, type)
+if !valid_type_id(type_id)
+  return NA
+endif
+if one_element_in_bundle(B)
+  key = getkeys(B)[1]
+endif
+# a 1x1 matrix is actually treated as a scalar and vice versa
+cast_onexone_matrix_to_scalar(B, key, type, types, &amp;type_id)
+if typestr(typeof(B[&quot;@key&quot;])) == types[type_id]
+  return 1
+else
+  return 0
+endif
+</code>
+</gretl-function>
+<gretl-function name="assertIsNotType" type="scalar">
+ <params count="2">
+  <param name="B" type="bundle" const="true"/>
+  <param name="type" type="string">
+<description>scalar, series, matrix, string, bundle, array, list.</description>
+  </param>
+ </params>
+<code>/* Checks that element in bundle B is not of a specific type.
+Returns 1 if true, otherwise 0. */
+strings types = get_gretl_dtypes()
+scalar type_id = strpos(types, type)
+if !valid_type_id(type_id)
+  return NA
+endif
+if one_element_in_bundle(B)
+  key = getkeys(B)[1]
+endif
+# a 1x1 matrix is actually treated as a scalar and vice versa
+cast_onexone_matrix_to_scalar(B, key, type, types, &amp;type_id)
+if typestr(typeof(B[&quot;@key&quot;])) == types[type_id]
+  return 0
+else
+  return 1
+endif
+</code>
+</gretl-function>
+<gretl-function name="assertTrue" type="scalar">
+ <params count="1">
+  <param name="x" type="scalar" const="true"/>
+ </params>
+<code>/* Checks that bool(x) is True (=1).
+Returns 1 if True, otherwise 0. */
+if !isbool(x)
+  return NA
+endif
+if x == 1
+  return 1
+else
+  return 0
+endif
+</code>
+</gretl-function>
+<gretl-function name="assertFalse" type="scalar">
+ <params count="1">
+  <param name="x" type="scalar" const="true"/>
+ </params>
+<code>/* Checks that bool(x) is False (=0).
+Returns 1 if False indeed, otherwise 0. */
+if !isbool(x)
+  return NA
+endif
+if x == 1
+  return 0
+else
+  return 1
+endif
+</code>
+</gretl-function>
+<gretl-function name="assertEqualStr" type="scalar">
+ <params count="2">
+  <param name="first" type="string" const="true"/>
+  <param name="second" type="string" const="true"/>
+ </params>
+<code>/* Checks for string values that a == b.
+Returns 1 if true, otherwise 0. */
+if first == second
+  return 1
+else
+  return 0
+endif
+</code>
+</gretl-function>
+<gretl-function name="assertNotEqualStr" type="scalar">
+ <params count="2">
+  <param name="first" type="string" const="true"/>
+  <param name="second" type="string" const="true"/>
+ </params>
+<code>/* Checks for string values that a != b.
+Returns 1 if true, otherwise 0. */
+if first == second
+  return 0
+else
+  return 1
+endif
+</code>
+</gretl-function>
+<gretl-function name="assertEqualNum" type="scalar">
+ <params count="2">
+  <param name="first" type="scalar" const="true"/>
+  <param name="second" type="scalar" const="true"/>
+ </params>
+<code>/* Checks for numerical values that a == b.
+Returns 1 if true, otherwise 0. If either first and/or
+are NA, return NA. */
+if !valid_first_and_second(first, second)
+  return NA
+endif
+if first == second
+  return 1
+else
+  return 0
+endif
+</code>
+</gretl-function>
+<gretl-function name="assertNotEqualNum" type="scalar">
+ <params count="2">
+  <param name="first" type="scalar" const="true"/>
+  <param name="second" type="scalar" const="true"/>
+ </params>
+<code>/* Checks for numerical values that a != b.
+Returns 1 if true, otherwise 0. If either first and/or
+are NA, return NA.*/
+if !valid_first_and_second(first, second)
+  return NA
+endif
+if first == second
+  return 0
+else
+  return 1
+endif
+</code>
+</gretl-function>
+<gretl-function name="assertGreaterEqualNum" type="scalar">
+ <params count="2">
+  <param name="first" type="scalar" const="true"/>
+  <param name="second" type="scalar" const="true"/>
+ </params>
+<code>/* Checks for numerical values that a &gt;= b.
+Returns 1 if true, otherwise 0. If either first and/or
+are NA, return NA. */
+if !valid_first_and_second(first, second)
+  return NA
+endif
+if first &gt;= second
+  return 1
+else
+  return 0
+endif
+</code>
+</gretl-function>
+<gretl-function name="assertLessEqualNum" type="scalar">
+ <params count="2">
+  <param name="first" type="scalar" const="true"/>
+  <param name="second" type="scalar" const="true"/>
+ </params>
+<code>/* Checks for numerical values that a &lt;= b.
+Returns 1 if true, otherwise 0. If either first and/or
+are NA, return NA. */
+if !valid_first_and_second(first, second)
+  return NA
+endif
+if first &lt;= second
+  return 1
+else
+  return 0
+endif
+</code>
+</gretl-function>
+<gretl-function name="assertAlmostEqualNum" type="scalar">
+ <params count="3">
+  <param name="first" type="scalar" const="true"/>
+  <param name="second" type="scalar" const="true"/>
+  <param name="places" type="int" min="1" default="7" const="true">
+<description>round up to decimal place</description>
+  </param>
+ </params>
+<code>/* Checks for numerical values that round(a-b) == 0.
+Returns 1 if true, otherwise 0. If either first and/or
+are NA, return NA. Decimal places are not supported, yet
+as not built-in gretl's round() function. */
+if !valid_first_and_second(first, second)
+  return NA
+endif
+if round(first - second) == 0
+  return 1
+else
+  return 0
+endif
+</code>
+</gretl-function>
+<gretl-function name="assertNotAlmostEqualNum" type="scalar">
+ <params count="3">
+  <param name="first" type="scalar" const="true"/>
+  <param name="second" type="scalar" const="true"/>
+  <param name="places" type="int" min="1" default="7" const="true">
+<description>round up to decimal place</description>
+  </param>
+ </params>
+<code>/* Checks for numerical values that a != b.
+Returns 1 if true, otherwise 0. If either first and/or
+are NA, return NA. Decimal places are not supported, yet
+as not built-in gretl's round() function. */
+if !valid_first_and_second(first, second)
+  return NA
+endif
+if round(first - second) == 0
+  return 0
+else
+  return 1
+endif
+</code>
+</gretl-function>
+<gretl-function name="one_element_in_bundle" type="scalar" private="1">
+ <params count="1">
+  <param name="B" type="bundle" const="true"/>
+ </params>
+<code>/* Helper function for assertIs(Not)Type() */
+if nelem(B) != 1
+  printf &quot;\nError: Bundle 'B' must include a single element to check.&quot;
+  return NA
+else
+  return 1
+endif
+</code>
+</gretl-function>
+<gretl-function name="valid_type_id" type="scalar" private="1">
+ <params count="1">
+  <param name="type_id" type="scalar" const="true"/>
+ </params>
+<code>/* Helper for assertIsType() */
+if type_id == 0
+  printf &quot;\nError: Requested data type not supported by gretl.&quot;
+  return 0
+else
+  return 1
+endif
+</code>
+</gretl-function>
+<gretl-function name="cast_onexone_matrix_to_scalar" type="void" private="1">
+ <params count="5">
+  <param name="B" type="bundle" const="true"/>
+  <param name="key" type="string" const="true"/>
+  <param name="type" type="string" const="true"/>
+  <param name="types" type="strings" const="true"/>
+  <param name="type_id" type="scalarref"/>
+ </params>
+<code>/* Helper function for assertIs/Not/Type()*/
+if type == &quot;matrix&quot;
+  catch scalar nrows = rows(B[&quot;@key&quot;])
+  if !$error
+    if (cols(B[&quot;@key&quot;]) + rows(B[&quot;@key&quot;])) == 2
+      type_id = strpos(types, &quot;scalar&quot;)
+    endif
+  endif
+endif
+</code>
+</gretl-function>
+<gretl-function name="get_gretl_dtypes" type="strings" private="1">
+<code>return defarray(&quot;scalar&quot;, &quot;series&quot;, &quot;matrix&quot;, &quot;string&quot;, &quot;bundle&quot;, &quot;array&quot;, &quot;list&quot;)
+</code>
+</gretl-function>
+<gretl-function name="isbool" type="scalar" private="1">
+ <params count="1">
+  <param name="x" type="scalar" const="true"/>
+ </params>
+<code>/* Helper function for assertTrue/False(). */
+if !ok(x) || x &lt; 0 || x &gt; 1
+  return 0
+else
+  return 1
+endif
+</code>
+</gretl-function>
+<gretl-function name="valid_first_and_second" type="scalar" private="1">
+ <params count="2">
+  <param name="first" type="scalar" const="true"/>
+  <param name="second" type="scalar" const="true"/>
+ </params>
+<code>/* Helper function for assert(Not)EqualNum(). */
+if ok(first) &amp;&amp; ok(second)
+  return 1
+else
+  return 0
+endif
+</code>
+</gretl-function>
+<sample-script>
+set verbose off
+clear
+
+include assertion.gfn --force
+
+scalar scalar_1 = NA
+scalar scalar_2 = -4.7
+
+eval assertTrue(ok(scalar_1))
+eval assertTrue(ok(scalar_2))
+
+eval assertFalse(ok(scalar_1))
+eval assertFalse(ok(scalar_2))
+
+
+# assertEqualStr():
+string str_1 = &quot;ABC&quot;
+string str_2 = &quot;ABC&quot;
+string str_3 = &quot;_ABC &quot;
+eval assertEqualStr(str_1, str_2)
+eval assertEqualStr(str_1, str_3)
+
+
+# assertEqualNum():
+scalar scalar_1 = -2.7
+scalar scalar_2 = -2.7
+scalar scalar_3 = 3.5
+eval assertEqualNum(scalar_1, scalar_2)
+eval assertEqualNum(scalar_1, scalar_3)
+
+# assertGreaterEqualNum():
+scalar scalar_1 = -2.7
+scalar scalar_2 = -2.7
+scalar scalar_3 = 3.5
+eval assertGreaterEqualNum(scalar_1, scalar_2)
+eval assertGreaterEqualNum(scalar_1, scalar_3)
+
+# assertAlmostEqualNum():
+scalar scalar_1 = 1
+scalar scalar_2 = 0.5
+scalar scalar_3 = 0.6
+eval assertAlmostEqualNum(scalar_1, scalar_2)
+eval assertAlmostEqualNum(scalar_1, scalar_3)
+</sample-script>
+</gretl-function-package>
+</gretl-functions>
