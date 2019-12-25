@@ -30,6 +30,7 @@ matrices mats_2 = defarray(mat_2)
 strings strarr_1 = array(0)
 strings strarr_2 = defarray(str_1, str_2, str_3, str_4)
 
+
 print "assertIsType() for positive cases"
 if assertIsType(defbundle("foo", scalar_1), "scalar") != 1
     stop

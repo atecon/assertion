@@ -1,19 +1,27 @@
 include string_utils.gfn --force		# FIXME: consider dependency!
 
-
-
-function scalar assertIsNotType (const bundle B,
-                                 string type "scalar, series, matrix, string, bundle, array, list.")
-    /* Checks that element in bundle B is not of a specified type.
-    Returns 1 if true, otherwise 0. */
-
-    strings types = get_gretl_dtypes()
-    scalar type_id = strpos(types, type)
+function scalar one_element_in_bundle (const bundle B)
+    /* Helper function for assertIs(Not)Type() */
 
     if nelem(B) != 1
         printf "\nError: Bundle 'B' must include a single element to check."
         return NA
     else
+        return 1
+    endif
+end function
+
+
+
+function scalar assertIsNotType (const bundle B,
+                                 string type "scalar, series, matrix, string, bundle, array, list.")
+    /* Checks that element in bundle B is not of a specific type.
+    Returns 1 if true, otherwise 0. */
+
+    strings types = get_gretl_dtypes()
+    scalar type_id = strpos(types, type)
+
+    if one_element_in_bundle(B)
         key = getkeys(B)[1]
     endif
 
@@ -35,16 +43,13 @@ end function
 
 function scalar assertIsType (const bundle B,
                               string type "scalar, series, matrix, string, bundle, array, list.")
-    /* Checks that element in bundle B is of a specified type.
+    /* Checks that element in bundle B is of a specific type.
     Returns 1 if true, otherwise 0. */
 
     strings types = get_gretl_dtypes()
     scalar type_id = strpos(types, type)
 
-    if nelem(B) != 1
-        printf "\nError: Bundle 'B' must include a single element to check."
-        return NA
-    else
+    if one_element_in_bundle(B)
         key = getkeys(B)[1]
     endif
 
