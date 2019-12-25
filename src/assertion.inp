@@ -11,6 +11,16 @@ function scalar one_element_in_bundle (const bundle B)
     endif
 end function
 
+function scalar valid_type_id (const scalar type_id)
+    /* Helper for assertIsType() */
+    
+    if type_id == 0
+        printf "\nError: Requested data type not supported by gretl."
+        return 0
+    else
+        return 1
+    endif
+end function
 
 
 function scalar assertIsNotType (const bundle B,
@@ -21,13 +31,12 @@ function scalar assertIsNotType (const bundle B,
     strings types = get_gretl_dtypes()
     scalar type_id = strpos(types, type)
 
-    if one_element_in_bundle(B)
-        key = getkeys(B)[1]
+    if !valid_type_id(type_id)
+        return NA
     endif
 
-    if type_id == 0
-        printf "\nError: Requested data type not supported by gretl."
-        return NA
+    if one_element_in_bundle(B)
+        key = getkeys(B)[1]
     endif
 
     # a 1x1 matrix is actually treated as a scalar and vice versa
@@ -49,13 +58,12 @@ function scalar assertIsType (const bundle B,
     strings types = get_gretl_dtypes()
     scalar type_id = strpos(types, type)
 
-    if one_element_in_bundle(B)
-        key = getkeys(B)[1]
+    if !valid_type_id(type_id)
+        return NA
     endif
 
-    if type_id == 0
-        printf "\nError: Requested data type not supported by gretl."
-        return NA
+    if one_element_in_bundle(B)
+        key = getkeys(B)[1]
     endif
 
     # a 1x1 matrix is actually treated as a scalar and vice versa
