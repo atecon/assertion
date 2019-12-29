@@ -12,7 +12,7 @@ end function
 
 function scalar valid_type_id (const scalar type_id)
     /* Helper for assertIsType() */
-    
+
     if type_id == 0
         printf "\nError: Requested data type not supported by gretl."
         return 0
@@ -22,10 +22,10 @@ function scalar valid_type_id (const scalar type_id)
 end function
 
 
-function scalar assertIsType (const bundle B,
-                              string type "scalar, series, matrix, string, bundle, array, list.")
-    /* Checks that element in bundle B is of a specific type.
-    Returns 1 if true, otherwise 0. */
+function scalar assert_type_get_key_and_return (const bundle B,
+                                                string type "scalar, series, matrix, string, bundle, array, list.",
+                                                const bool is_no_type)
+    /* */
 
     strings types = get_gretl_dtypes()
     scalar type_id = strpos(types, type)
@@ -35,19 +35,36 @@ function scalar assertIsType (const bundle B,
     endif
 
     if one_element_in_bundle(B)
-        key = getkeys(B)[1]
+        string key = getkeys(B)[1]
     else
-        return 0
+        return NA
     endif
 
     # a 1x1 matrix is actually treated as a scalar and vice versa
     cast_onexone_matrix_to_scalar(B, key, type, types, &type_id)
 
     if typestr(typeof(B["@key"])) == types[type_id]
-        return 1
+        if is_no_type
+            return 0
+        else
+            return 1
+        endif
     else
-        return 0
+        if is_no_type
+            return 1
+        else
+            return 0
+        endif
     endif
+end function
+
+
+function scalar assertIsType (const bundle B,
+                              string type "scalar, series, matrix, string, bundle, array, list.")
+    /* Checks that element in bundle B is of a specific type.
+    Returns 1 if true, otherwise 0. */
+
+    return assert_type_and_get_key(B, type, 0)
 end function
 
 
@@ -56,25 +73,7 @@ function scalar assertIsNotType (const bundle B,
     /* Checks that element in bundle B is not of a specific type.
     Returns 1 if true, otherwise 0. */
 
-    strings types = get_gretl_dtypes()
-    scalar type_id = strpos(types, type)
-
-    if !valid_type_id(type_id)
-        return NA
-    endif
-
-    if one_element_in_bundle(B)
-        key = getkeys(B)[1]
-    endif
-
-    # a 1x1 matrix is actually treated as a scalar and vice versa
-    cast_onexone_matrix_to_scalar(B, key, type, types, &type_id)
-
-    if typestr(typeof(B["@key"])) == types[type_id]
-        return 0
-    else
-        return 1
-    endif
+    return assert_type_and_get_key(B, type, 1)
 end function
 
 

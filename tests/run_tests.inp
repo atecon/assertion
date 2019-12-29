@@ -8,16 +8,14 @@ include string_utils.gfn 		# must be installed
 
 nulldata 4 -p
 
-
 print "Start with assertIsType()"
-bundle b = null
-if assertIsType(b, "scalar") != 0
+
+bundle b = null						# empty bundle case
+if ok(assertIsType(b, "scalar")) != 0
     stop
 endif
 
-
-
-
+# proper bundle
 scalar scalar_1 = 4.3
 scalar scalar_2 = NA
 matrix mat_1 = {}
