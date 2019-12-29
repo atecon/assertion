@@ -64,7 +64,7 @@ function scalar assertIsType (const bundle B,
     /* Checks that element in bundle B is of a specific type.
     Returns 1 if true, otherwise 0. */
 
-    return assert_type_and_get_key(B, type, 0)
+    return assert_type_get_key_and_return(B, type, 0)
 end function
 
 
@@ -73,7 +73,7 @@ function scalar assertIsNotType (const bundle B,
     /* Checks that element in bundle B is not of a specific type.
     Returns 1 if true, otherwise 0. */
 
-    return assert_type_and_get_key(B, type, 1)
+    return assert_type_get_key_and_return(B, type, 1)
 end function
 
 
