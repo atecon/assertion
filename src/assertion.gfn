@@ -169,7 +169,7 @@ string_utils extra </depends>
  </params>
 <code>/* Checks that element in bundle B is of a specific type.
 Returns 1 if true, otherwise 0. */
-return assert_type_and_get_key(B, type, 0)
+return assert_type_get_key_and_return(B, type, 0)
 </code>
 </gretl-function>
 <gretl-function name="assertIsNotType" type="scalar">
@@ -181,7 +181,7 @@ return assert_type_and_get_key(B, type, 0)
  </params>
 <code>/* Checks that element in bundle B is not of a specific type.
 Returns 1 if true, otherwise 0. */
-return assert_type_and_get_key(B, type, 1)
+return assert_type_get_key_and_return(B, type, 1)
 </code>
 </gretl-function>
 <gretl-function name="assertTrue" type="scalar">
