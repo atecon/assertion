@@ -1,12 +1,9 @@
-Written by Artur Tarassow (please ask questions and report bugs on the gretl
-mailing list if possible).
+Written by Artur Tarassow (please ask questions and report bugs on the gretl mailing list if possible).
 
 Source code and test script(s) can be found here:
 https://github.com/atecon/assertion
 
-Collection of assert-functions for writing (unit-)test cases and to detect test
-failure. Assert is a method useful in determining Pass or Fail status of a test
-case.
+Collection of assert-functions for writing (unit-)test cases and to detect test failure. Assert is a method useful in determining Pass or Fail status of a test case.
 
 Currently, the most commonly used methods are supported.
 

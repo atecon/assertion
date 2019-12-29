@@ -5,17 +5,18 @@ string WD = "/home/at/git/assertion"
 set workdir @WD
 include "./src/assertion.inp" --force
 include string_utils.gfn 		# must be installed
+include extra.gfn		 		# must be installed
 
 nulldata 4 -p
 
-print "Start with assertIsType()"
 
+print "Start with assertIsType() + empty bundle"
 bundle b = null						# empty bundle case
 if ok(assertIsType(b, "scalar")) != 0
     stop
 endif
 
-# proper bundle
+print "Start with assertIsType()"
 scalar scalar_1 = 4.3
 scalar scalar_2 = NA
 matrix mat_1 = {}
@@ -432,37 +433,22 @@ print "Start with assertAlmostEqualNum()"
 if assertAlmostEqualNum(0.5, 1)
     stop
 endif
-if !assertAlmostEqualNum(0.51, 1)
+if assertAlmostEqualNum(0.99, 1, 1e-2)
     stop
 endif
-if !assertAlmostEqualNum(0.6, 1)
+if !assertAlmostEqualNum(0.991, 1, 1e-2)
     stop
 endif
-if assertAlmostEqualNum(1, 0.5)
+if assertAlmostEqualNum(-0.99, -1, 1e-2)
     stop
 endif
-if !assertAlmostEqualNum(1, 0.51)
+if !assertAlmostEqualNum(-0.991, -1, 1e-2)
     stop
 endif
-if !assertAlmostEqualNum(1, 0.6)
+if assertAlmostEqualNum(0.99, -1, 1e-2)
     stop
 endif
-if assertAlmostEqualNum(-0.5, -1)
-    stop
-endif
-if !assertAlmostEqualNum(-0.51, -1)
-    stop
-endif
-if !assertAlmostEqualNum(-0.6, -1)
-    stop
-endif
-if assertAlmostEqualNum(-1, -0.5)
-    stop
-endif
-if !assertAlmostEqualNum(-1, -0.51)
-    stop
-endif
-if !assertAlmostEqualNum(-1, -0.6)
+if assertAlmostEqualNum(0.991, -1, 1e-2)
     stop
 endif
 if ok(assertAlmostEqualNum(0.5, NA))
@@ -475,42 +461,26 @@ if ok(assertAlmostEqualNum(NA, NA))
     stop
 endif
 
-
 print "Start with assertNotAlmostEqualNum()"
 if !assertNotAlmostEqualNum(0.5, 1)
     stop
 endif
-if assertNotAlmostEqualNum(0.51, 1)
+if !assertNotAlmostEqualNum(0.99, 1, 1e-2)
     stop
 endif
-if assertNotAlmostEqualNum(0.6, 1)
+if assertNotAlmostEqualNum(0.991, 1, 1e-2)
     stop
 endif
-if !assertNotAlmostEqualNum(1, 0.5)
+if !assertNotAlmostEqualNum(-0.99, -1, 1e-2)
     stop
 endif
-if assertNotAlmostEqualNum(1, 0.51)
+if assertNotAlmostEqualNum(-0.991, -1, 1e-2)
     stop
 endif
-if assertNotAlmostEqualNum(1, 0.6)
+if !assertNotAlmostEqualNum(0.99, -1, 1e-2)
     stop
 endif
-if !assertNotAlmostEqualNum(-0.5, -1)
-    stop
-endif
-if assertNotAlmostEqualNum(-0.51, -1)
-    stop
-endif
-if assertNotAlmostEqualNum(-0.6, -1)
-    stop
-endif
-if !assertNotAlmostEqualNum(-1, -0.5)
-    stop
-endif
-if assertNotAlmostEqualNum(-1, -0.51)
-    stop
-endif
-if assertNotAlmostEqualNum(-1, -0.6)
+if !assertNotAlmostEqualNum(0.991, -1, 1e-2)
     stop
 endif
 if ok(assertNotAlmostEqualNum(0.5, NA))

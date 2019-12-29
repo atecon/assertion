@@ -251,21 +251,19 @@ function scalar assertNotEqualNum (const scalar first,
     endif
 end function
 
-
-
 function scalar assertAlmostEqualNum (const scalar first,
                                       const scalar second,
-                                      const int places[1::7] "round up to decimal place")
+                                      const scalar threshold[0::1e-7] "decimal places to check")
     /* Checks for numerical values that round(a-b) == 0.
        Returns 1 if true, otherwise 0. If either first and/or
-       are NA, return NA. Decimal places are not supported, yet
-    as not built-in gretl's round() function. */
+       second are NA, return NA. */
 
     if !valid_first_and_second(first, second)
         return NA
     endif
 
-    if round(first - second) == 0
+    matrix m = first - second
+    if zeroifclose(&m, threshold)
         return 1
     else
         return 0
@@ -275,17 +273,18 @@ end function
 
 function scalar assertNotAlmostEqualNum (const scalar first,
                                          const scalar second,
-                                         const int places[1::7] "round up to decimal place")
+                                         const scalar threshold[0::1e-7] "decimal places to check")
     /* Checks for numerical values that a != b.
-       Returns 1 if true, otherwise 0. If either first and/or
-       are NA, return NA. Decimal places are not supported, yet
-    as not built-in gretl's round() function. */
+       Returns 0 if true, otherwise 1. If either first and/or
+       second are NA, return NA. */
 
     if !valid_first_and_second(first, second)
         return NA
     endif
 
-    if round(first - second) == 0
+    matrix m = first - second
+
+    if zeroifclose(&m, threshold)
         return 0
     else
         return 1
