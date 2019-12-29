@@ -3,8 +3,8 @@
 <gretl-function-package name="assertion" no-data-ok="true" minver="2018a">
 <author email="atecon@posteo.de">Artur Tarassow</author>
 <version>0.5</version>
-<date>2019-12-25</date>
-<description>Assert functions for verifying expectationa and values in gretl tests</description>
+<date>2019-12-29</date>
+<description>Assert functions for verifying expectations and values in gretl tests</description>
 <tags>C81</tags>
 <help>
 Written by Artur Tarassow (please ask questions and report bugs on the gretl mailing list if possible).
@@ -23,7 +23,7 @@ assertEqualNum(first, second):
 Checks for numerical values that first == second (equal).
 
 Arguments:	first 	(scalar)
-			second	(scalar)
+		second	(scalar)
 
 Return:
 Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA.
@@ -34,7 +34,7 @@ assertNotEqualNum(first, second):
 Checks for numerical values that first != second (not equal).
 
 Arguments:	first 	(scalar)
-			second	(scalar)
+		second	(scalar)
 
 Return:
 Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA.
@@ -43,10 +43,10 @@ Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA
 
 assertGreaterEqualNum(first, second):
 --------------
-Checks for numerical values that first &gt;= second (equal).
+Checks for numerical values that first &gt;= second (greater-or-equal).
 
 Arguments:	first 	(scalar)
-			second	(scalar)
+		second	(scalar)
 
 Return:
 Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA.
@@ -54,10 +54,10 @@ Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA
 
 assertLessEqualNum(first, second):
 --------------
-Checks for numerical values that first &lt;= second (not equal).
+Checks for numerical values that first &lt;= second (less-or-equal).
 
 Arguments:	first 	(scalar)
-			second	(scalar)
+		second	(scalar)
 
 Return:
 Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA.
@@ -68,7 +68,7 @@ assertAlmostEqualNum(first, second):
 Checks for numerical values that round(first - second) == 0.
 
 Arguments:	first 	(scalar)
-			second	(scalar)
+		second	(scalar)
 
 Return:
 Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA.
@@ -79,7 +79,7 @@ assertNotAlmostEqualNum(first, second):
 Checks for numerical values that round(first - second) != 0.
 
 Arguments:	first 	(scalar)
-			second	(scalar)
+		second	(scalar)
 
 Return:
 Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA.
@@ -90,7 +90,7 @@ assertEqualStr(first, second):
 Checks for string-valued variables that first == second (equal).
 
 Arguments:	first 	(string)
-			second	(string)
+		second	(string)
 
 Return:
 Returns 1 if true, otherwise 0 (false).
@@ -98,10 +98,10 @@ Returns 1 if true, otherwise 0 (false).
 
 assertNotEqualStr(first, second):
 --------------
-Checks for string-valued variables that first == second (not equal).
+Checks for string-valued variables that first != second (not equal).
 
 Arguments:	first 	(string)
-			second	(string)
+		second	(string)
 
 Return:
 Returns 1 if true, otherwise 0 (false).
@@ -132,10 +132,12 @@ assertIsType(B, type):
 Checks that element in bundle B is of a specific type.
 
 Arguments:	B		(bundle with single element)
-			type 	(string, either: &quot;scalar, series, matrix, string, bundle, array, list.&quot;)
+		type 	(string, either: &quot;scalar, series, matrix, string,
+			bundle, array, list.&quot;)
 
 Return:
-Returns 1 if true, otherwise 0 (false). If &quot;type&quot; is not supported data typ, return NA.
+Returns 1 if true, otherwise 0 (false). If &quot;type&quot; is not supported data typ,
+return NA.
 -----------------------------------------------------------------------
 
 assertIsNotType(B, type):
@@ -143,10 +145,12 @@ assertIsNotType(B, type):
 Checks that element in bundle B is not of a specific type.
 
 Arguments:	B		(bundle with single element)
-			type 	(string, either: &quot;scalar, series, matrix, string, bundle, array, list.&quot;)
+		type 	(string, either: &quot;scalar, series, matrix, string, bundle,
+			array, list.&quot;)
 
 Return:
-Returns 1 if true, otherwise 0 (false). If &quot;type&quot; is not supported data typ, return NA.
+Returns 1 if true, otherwise 0 (false). If &quot;type&quot; is not supported data typ,
+return NA.
 -----------------------------------------------------------------------
 
 
@@ -154,8 +158,8 @@ Changelog:
 - v0.5, December 2019:
     + initial release
 </help>
-<depends count="1">
-string_utils </depends>
+<depends count="2">
+string_utils extra </depends>
 <gretl-function name="assertIsType" type="scalar">
  <params count="2">
   <param name="B" type="bundle" const="true"/>
@@ -165,21 +169,7 @@ string_utils </depends>
  </params>
 <code>/* Checks that element in bundle B is of a specific type.
 Returns 1 if true, otherwise 0. */
-strings types = get_gretl_dtypes()
-scalar type_id = strpos(types, type)
-if !valid_type_id(type_id)
-  return NA
-endif
-if one_element_in_bundle(B)
-  key = getkeys(B)[1]
-endif
-# a 1x1 matrix is actually treated as a scalar and vice versa
-cast_onexone_matrix_to_scalar(B, key, type, types, &amp;type_id)
-if typestr(typeof(B[&quot;@key&quot;])) == types[type_id]
-  return 1
-else
-  return 0
-endif
+return assert_type_and_get_key(B, type, 0)
 </code>
 </gretl-function>
 <gretl-function name="assertIsNotType" type="scalar">
@@ -191,21 +181,7 @@ endif
  </params>
 <code>/* Checks that element in bundle B is not of a specific type.
 Returns 1 if true, otherwise 0. */
-strings types = get_gretl_dtypes()
-scalar type_id = strpos(types, type)
-if !valid_type_id(type_id)
-  return NA
-endif
-if one_element_in_bundle(B)
-  key = getkeys(B)[1]
-endif
-# a 1x1 matrix is actually treated as a scalar and vice versa
-cast_onexone_matrix_to_scalar(B, key, type, types, &amp;type_id)
-if typestr(typeof(B[&quot;@key&quot;])) == types[type_id]
-  return 0
-else
-  return 1
-endif
+return assert_type_and_get_key(B, type, 1)
 </code>
 </gretl-function>
 <gretl-function name="assertTrue" type="scalar">
@@ -344,18 +320,18 @@ endif
  <params count="3">
   <param name="first" type="scalar" const="true"/>
   <param name="second" type="scalar" const="true"/>
-  <param name="places" type="int" min="1" default="7" const="true">
-<description>round up to decimal place</description>
+  <param name="threshold" type="scalar" min="0" default="1e-07" const="true">
+<description>decimal places to check</description>
   </param>
  </params>
 <code>/* Checks for numerical values that round(a-b) == 0.
 Returns 1 if true, otherwise 0. If either first and/or
-are NA, return NA. Decimal places are not supported, yet
-as not built-in gretl's round() function. */
+second are NA, return NA. */
 if !valid_first_and_second(first, second)
   return NA
 endif
-if round(first - second) == 0
+matrix m = first - second
+if zeroifclose(&amp;m, threshold)
   return 1
 else
   return 0
@@ -366,18 +342,18 @@ endif
  <params count="3">
   <param name="first" type="scalar" const="true"/>
   <param name="second" type="scalar" const="true"/>
-  <param name="places" type="int" min="1" default="7" const="true">
-<description>round up to decimal place</description>
+  <param name="threshold" type="scalar" min="0" default="1e-07" const="true">
+<description>decimal places to check</description>
   </param>
  </params>
 <code>/* Checks for numerical values that a != b.
-Returns 1 if true, otherwise 0. If either first and/or
-are NA, return NA. Decimal places are not supported, yet
-as not built-in gretl's round() function. */
+Returns 0 if true, otherwise 1. If either first and/or
+second are NA, return NA. */
 if !valid_first_and_second(first, second)
   return NA
 endif
-if round(first - second) == 0
+matrix m = first - second
+if zeroifclose(&amp;m, threshold)
   return 0
 else
   return 1
@@ -391,7 +367,7 @@ endif
 <code>/* Helper function for assertIs(Not)Type() */
 if nelem(B) != 1
   printf &quot;\nError: Bundle 'B' must include a single element to check.&quot;
-  return NA
+  return 0
 else
   return 1
 endif
@@ -407,6 +383,42 @@ if type_id == 0
   return 0
 else
   return 1
+endif
+</code>
+</gretl-function>
+<gretl-function name="assert_type_get_key_and_return" type="scalar" private="1">
+ <params count="3">
+  <param name="B" type="bundle" const="true"/>
+  <param name="type" type="string">
+<description>scalar, series, matrix, string, bundle, array, list.</description>
+  </param>
+  <param name="is_no_type" type="bool" const="true"/>
+ </params>
+<code>/* */
+strings types = get_gretl_dtypes()
+scalar type_id = strpos(types, type)
+if !valid_type_id(type_id)
+  return NA
+endif
+if one_element_in_bundle(B)
+  string key = getkeys(B)[1]
+else
+  return NA
+endif
+# a 1x1 matrix is actually treated as a scalar and vice versa
+cast_onexone_matrix_to_scalar(B, key, type, types, &amp;type_id)
+if typestr(typeof(B[&quot;@key&quot;])) == types[type_id]
+  if is_no_type
+    return 0
+  else
+    return 1
+  endif
+else
+  if is_no_type
+    return 1
+  else
+    return 0
+  endif
 endif
 </code>
 </gretl-function>
@@ -438,10 +450,12 @@ endif
   <param name="x" type="scalar" const="true"/>
  </params>
 <code>/* Helper function for assertTrue/False(). */
-if !ok(x) || x &lt; 0 || x &gt; 1
-  return 0
-else
+if ok(x) &amp;&amp; (x == 1 || x == 0)
   return 1
+elif !ok(x)
+  return NA
+else
+  return 0
 endif
 </code>
 </gretl-function>

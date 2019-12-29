@@ -11,7 +11,6 @@ nulldata 4 -p
 
 
 print "Start with isbool()"
-
 if !isbool(0)
     stop
 endif
