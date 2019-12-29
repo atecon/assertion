@@ -4,11 +4,20 @@ clear
 string WD = "/home/at/git/assertion"
 set workdir @WD
 include "./src/assertion.inp" --force
+include string_utils.gfn 		# must be installed
 
 nulldata 4 -p
 
 
 print "Start with assertIsType()"
+bundle b = null
+if assertIsType(b, "scalar") != 0
+    stop
+endif
+
+
+
+
 scalar scalar_1 = 4.3
 scalar scalar_2 = NA
 matrix mat_1 = {}

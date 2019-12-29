@@ -3,7 +3,7 @@ function scalar one_element_in_bundle (const bundle B)
 
     if nelem(B) != 1
         printf "\nError: Bundle 'B' must include a single element to check."
-        return NA
+        return 0
     else
         return 1
     endif
@@ -36,6 +36,8 @@ function scalar assertIsType (const bundle B,
 
     if one_element_in_bundle(B)
         key = getkeys(B)[1]
+    else
+        return 0
     endif
 
     # a 1x1 matrix is actually treated as a scalar and vice versa
