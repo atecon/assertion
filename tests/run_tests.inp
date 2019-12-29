@@ -10,6 +10,31 @@ include extra.gfn		 		# must be installed
 nulldata 4 -p
 
 
+print "Start with isbool()"
+
+if !isbool(0)
+    stop
+endif
+if !isbool(1)
+    stop
+endif
+if isbool(1.001)
+    stop
+endif
+if isbool(0.99)
+    stop
+endif
+if isbool(-1)
+    stop
+endif
+if isbool(2)
+    stop
+endif
+if ok(isbool(NA))
+    stop
+endif
+
+
 print "Start with assertIsType() + empty bundle"
 bundle b = null						# empty bundle case
 if ok(assertIsType(b, "scalar")) != 0

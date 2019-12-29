@@ -103,10 +103,12 @@ end function
 function scalar isbool (const scalar x)
     /* Helper function for assertTrue/False(). */
 
-    if !ok(x) || x < 0 || x > 1
-        return 0
-    else
+    if ok(x) && (x == 1 || x == 0)
         return 1
+    elif !ok(x)
+        return NA
+    else
+        return 0
     endif
 end function
 
