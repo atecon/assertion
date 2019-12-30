@@ -485,6 +485,7 @@ if ok(assertAlmostEqualNum(NA, NA))
     stop
 endif
 
+
 print "Start with assertNotAlmostEqualNum()"
 if !assertNotAlmostEqualNum(0.5, 1)
     stop
@@ -518,7 +519,4 @@ if ok(assertNotAlmostEqualNum(NA, NA))
 endif
 
 
-
 printf "\nInfo: All tests passed.\n"
-
-

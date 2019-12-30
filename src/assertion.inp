@@ -30,11 +30,7 @@ function scalar assert_type_get_key_and_return (const bundle B,
     strings types = get_gretl_dtypes()
     scalar type_id = strpos(types, type)
 
-    if !valid_type_id(type_id)
-        return NA
-    endif
-
-    if one_element_in_bundle(B)
+    if one_element_in_bundle(B) && valid_type_id(type_id)
         string key = getkeys(B)[1]
     else
         return NA
@@ -86,10 +82,8 @@ function void cast_onexone_matrix_to_scalar (const bundle B,
 
     if type == "matrix"
         catch scalar nrows = rows(B["@key"])
-        if !$error
-            if (cols(B["@key"]) + rows(B["@key"])) == 2
-                type_id = strpos(types, "scalar")
-            endif
+        if !$error && (cols(B["@key"]) + rows(B["@key"])) == 2
+            type_id = strpos(types, "scalar")
         endif
     endif
 end function
@@ -119,9 +113,7 @@ function scalar assertTrue (const scalar x)
 
     if !isbool(x)
         return NA
-    endif
-
-    if x == 1
+    elif x == 1
         return 1
     else
         return 0
@@ -135,9 +127,7 @@ function scalar assertFalse (const scalar x)
 
     if !isbool(x)
         return NA
-    endif
-
-    if x == 1
+    elif x == 1
         return 0
     else
         return 1
@@ -208,9 +198,7 @@ function scalar assertLessEqualNum (const scalar first,
 
     if !valid_first_and_second(first, second)
         return NA
-    endif
-
-    if first <= second
+    elif first <= second
         return 1
     else
         return 0
@@ -226,9 +214,7 @@ function scalar assertEqualNum (const scalar first,
 
     if !valid_first_and_second(first, second)
         return NA
-    endif
-
-    if first == second
+    elif first == second
         return 1
     else
         return 0
@@ -244,9 +230,7 @@ function scalar assertNotEqualNum (const scalar first,
 
     if !valid_first_and_second(first, second)
         return NA
-    endif
-
-    if first == second
+    elif first == second
         return 0
     else
         return 1
@@ -258,14 +242,13 @@ function scalar assertAlmostEqualNum (const scalar first,
                                       const scalar threshold[0::1e-7] "decimal places to check")
     /* Checks for numerical values that round(a-b) == 0.
        Returns 1 if true, otherwise 0. If either first and/or
-       second are NA, return NA. */
+    second are NA, return NA. */
+
+    matrix m = first - second
 
     if !valid_first_and_second(first, second)
         return NA
-    endif
-
-    matrix m = first - second
-    if zeroifclose(&m, threshold)
+    elif zeroifclose(&m, threshold)
         return 1
     else
         return 0
@@ -278,15 +261,13 @@ function scalar assertNotAlmostEqualNum (const scalar first,
                                          const scalar threshold[0::1e-7] "decimal places to check")
     /* Checks for numerical values that a != b.
        Returns 0 if true, otherwise 1. If either first and/or
-       second are NA, return NA. */
-
-    if !valid_first_and_second(first, second)
-        return NA
-    endif
+    second are NA, return NA. */
 
     matrix m = first - second
 
-    if zeroifclose(&m, threshold)
+    if !valid_first_and_second(first, second)
+        return NA
+    elif zeroifclose(&m, threshold)
         return 0
     else
         return 1
