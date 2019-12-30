@@ -34,13 +34,13 @@ if ok(isbool(NA))
 endif
 
 
-print "Start with assertIsType() + empty bundle"
+print "Start with assert_is_type() + empty bundle"
 bundle b = null						# empty bundle case
-if ok(assertIsType(b, "scalar")) != 0
+if ok(assert_is_type(b, "scalar")) != 0
     stop
 endif
 
-print "Start with assertIsType()"
+print "Start with assert_is_type()"
 scalar scalar_1 = 4.3
 scalar scalar_2 = NA
 matrix mat_1 = {}
@@ -63,458 +63,458 @@ strings strarr_1 = array(0)
 strings strarr_2 = defarray(str_1, str_2, str_3, str_4)
 
 
-print "assertIsType() for positive cases"
-if assertIsType(defbundle("foo", scalar_1), "scalar") != 1
+print "assert_is_type() for positive cases"
+if assert_is_type(defbundle("foo", scalar_1), "scalar") != 1
     stop
 endif
-if assertIsType(defbundle("foo", scalar_2), "scalar") != 1
-    stop
-endif
-
-if assertIsType(defbundle("foo", mat_1), "matrix") != 1
-    stop
-endif
-if assertIsType(defbundle("foo", mat_2), "matrix") != 1
-    stop
-endif
-if assertIsType(defbundle("foo", mat_3), "matrix") != 1
-    stop
-endif
-if assertIsType(defbundle("foo", mat_4), "matrix") != 1
+if assert_is_type(defbundle("foo", scalar_2), "scalar") != 1
     stop
 endif
 
-if assertIsType(defbundle("foo", str_1), "string") != 1
+if assert_is_type(defbundle("foo", mat_1), "matrix") != 1
     stop
 endif
-if assertIsType(defbundle("foo", str_2), "string") != 1
+if assert_is_type(defbundle("foo", mat_2), "matrix") != 1
     stop
 endif
-if assertIsType(defbundle("foo", str_3), "string") != 1
+if assert_is_type(defbundle("foo", mat_3), "matrix") != 1
     stop
 endif
-if assertIsType(defbundle("foo", str_4), "string") != 1
-    stop
-endif
-
-if assertIsType(defbundle("foo", b_1), "bundle") != 1
-    stop
-endif
-if assertIsType(defbundle("foo", b_2), "bundle") != 1
+if assert_is_type(defbundle("foo", mat_4), "matrix") != 1
     stop
 endif
 
-if assertIsType(defbundle("foo", ser_1), "series") != 1
+if assert_is_type(defbundle("foo", str_1), "string") != 1
     stop
 endif
-if assertIsType(defbundle("foo", ser_2), "series") != 1
+if assert_is_type(defbundle("foo", str_2), "string") != 1
     stop
 endif
-
-if assertIsType(defbundle("foo", L_1), "list") != 1
+if assert_is_type(defbundle("foo", str_3), "string") != 1
     stop
 endif
-if assertIsType(defbundle("foo", L_2), "list") != 1
-    stop
-endif
-
-if assertIsType(defbundle("foo", mats_1), "array") != 1
-    stop
-endif
-if assertIsType(defbundle("foo", mats_2), "array") != 1
-    stop
-endif
-if assertIsType(defbundle("foo", strarr_1), "array") != 1
-    stop
-endif
-if assertIsType(defbundle("foo", strarr_2), "array") != 1
+if assert_is_type(defbundle("foo", str_4), "string") != 1
     stop
 endif
 
-
-print "assertIsType() for negative cases"
-if assertIsType(defbundle("foo", scalar_1), "series") != 0
+if assert_is_type(defbundle("foo", b_1), "bundle") != 1
     stop
 endif
-if assertIsType(defbundle("foo", scalar_2), "matrix") != 1
-    stop
-endif
-
-if assertIsType(defbundle("foo", mat_1), "scalar") != 0
-    stop
-endif
-if assertIsType(defbundle("foo", mat_2), "string") != 0
-    stop
-endif
-if assertIsType(defbundle("foo", mat_3), "list") != 0
-    stop
-endif
-if assertIsType(defbundle("foo", mat_4), "array") != 0
+if assert_is_type(defbundle("foo", b_2), "bundle") != 1
     stop
 endif
 
-if assertIsType(defbundle("foo", str_1), "matrix") != 0
+if assert_is_type(defbundle("foo", ser_1), "series") != 1
     stop
 endif
-if assertIsType(defbundle("foo", str_2), "series") != 0
-    stop
-endif
-if assertIsType(defbundle("foo", str_3), "list") != 0
-    stop
-endif
-if assertIsType(defbundle("foo", str_4), "array") != 0
+if assert_is_type(defbundle("foo", ser_2), "series") != 1
     stop
 endif
 
-if assertIsType(defbundle("foo", b_1), "array") != 0
+if assert_is_type(defbundle("foo", L_1), "list") != 1
     stop
 endif
-if assertIsType(defbundle("foo", b_2), "scalar") != 0
-    stop
-endif
-
-if assertIsType(defbundle("foo", ser_1), "matrix") != 0
-    stop
-endif
-if assertIsType(defbundle("foo", ser_2), "array") != 0
+if assert_is_type(defbundle("foo", L_2), "list") != 1
     stop
 endif
 
-if assertIsType(defbundle("foo", L_1), "series") != 0
+if assert_is_type(defbundle("foo", mats_1), "array") != 1
     stop
 endif
-if assertIsType(defbundle("foo", L_2), "array") != 0
+if assert_is_type(defbundle("foo", mats_2), "array") != 1
     stop
 endif
-
-if assertIsType(defbundle("foo", mats_1), "scalar") != 0
+if assert_is_type(defbundle("foo", strarr_1), "array") != 1
     stop
 endif
-if assertIsType(defbundle("foo", mats_2), "series") != 0
-    stop
-endif
-if assertIsType(defbundle("foo", strarr_1), "list") != 0
-    stop
-endif
-if assertIsType(defbundle("foo", strarr_2), "string") != 0
+if assert_is_type(defbundle("foo", strarr_2), "array") != 1
     stop
 endif
 
 
-print "assertIsNotType()"
-if assertIsNotType(defbundle("foo", scalar_1), "scalar") != 0
+print "assert_is_type() for negative cases"
+if assert_is_type(defbundle("foo", scalar_1), "series") != 0
     stop
 endif
-if assertIsNotType(defbundle("foo", scalar_2), "matrix") != 0
+if assert_is_type(defbundle("foo", scalar_2), "matrix") != 1
+    stop
+endif
+
+if assert_is_type(defbundle("foo", mat_1), "scalar") != 0
+    stop
+endif
+if assert_is_type(defbundle("foo", mat_2), "string") != 0
+    stop
+endif
+if assert_is_type(defbundle("foo", mat_3), "list") != 0
+    stop
+endif
+if assert_is_type(defbundle("foo", mat_4), "array") != 0
+    stop
+endif
+
+if assert_is_type(defbundle("foo", str_1), "matrix") != 0
+    stop
+endif
+if assert_is_type(defbundle("foo", str_2), "series") != 0
+    stop
+endif
+if assert_is_type(defbundle("foo", str_3), "list") != 0
+    stop
+endif
+if assert_is_type(defbundle("foo", str_4), "array") != 0
+    stop
+endif
+
+if assert_is_type(defbundle("foo", b_1), "array") != 0
+    stop
+endif
+if assert_is_type(defbundle("foo", b_2), "scalar") != 0
+    stop
+endif
+
+if assert_is_type(defbundle("foo", ser_1), "matrix") != 0
+    stop
+endif
+if assert_is_type(defbundle("foo", ser_2), "array") != 0
+    stop
+endif
+
+if assert_is_type(defbundle("foo", L_1), "series") != 0
+    stop
+endif
+if assert_is_type(defbundle("foo", L_2), "array") != 0
+    stop
+endif
+
+if assert_is_type(defbundle("foo", mats_1), "scalar") != 0
+    stop
+endif
+if assert_is_type(defbundle("foo", mats_2), "series") != 0
+    stop
+endif
+if assert_is_type(defbundle("foo", strarr_1), "list") != 0
+    stop
+endif
+if assert_is_type(defbundle("foo", strarr_2), "string") != 0
+    stop
+endif
+
+
+print "assert_is_not_type()"
+if assert_is_not_type(defbundle("foo", scalar_1), "scalar") != 0
+    stop
+endif
+if assert_is_not_type(defbundle("foo", scalar_2), "matrix") != 0
     # scalar treated like matrix
     stop
 endif
-if assertIsNotType(defbundle("foo", mat_1), "matrix") != 0
+if assert_is_not_type(defbundle("foo", mat_1), "matrix") != 0
     stop
 endif
-if assertIsNotType(defbundle("foo", mat_2), "matrix") != 0
+if assert_is_not_type(defbundle("foo", mat_2), "matrix") != 0
     stop
 endif
-if assertIsNotType(defbundle("foo", mat_3), "list") != 1
+if assert_is_not_type(defbundle("foo", mat_3), "list") != 1
     stop
 endif
-if assertIsNotType(defbundle("foo", mat_4), "matrix") != 0
-    stop
-endif
-
-if assertIsNotType(defbundle("foo", str_1), "array") != 1
-    stop
-endif
-if assertIsNotType(defbundle("foo", str_2), "matrix") != 1
-    stop
-endif
-if assertIsNotType(defbundle("foo", str_3), "string") != 0
-    stop
-endif
-if assertIsNotType(defbundle("foo", str_4), "list") != 1
+if assert_is_not_type(defbundle("foo", mat_4), "matrix") != 0
     stop
 endif
 
-if assertIsNotType(defbundle("foo", b_1), "bundle") != 0
+if assert_is_not_type(defbundle("foo", str_1), "array") != 1
     stop
 endif
-if assertIsNotType(defbundle("foo", b_2), "series") != 1
+if assert_is_not_type(defbundle("foo", str_2), "matrix") != 1
     stop
 endif
-
-if assertIsNotType(defbundle("foo", ser_1), "scalar") != 1
+if assert_is_not_type(defbundle("foo", str_3), "string") != 0
     stop
 endif
-if assertIsNotType(defbundle("foo", ser_2), "series") != 0
-    stop
-endif
-
-if assertIsNotType(defbundle("foo", L_1), "list") != 0
-    stop
-endif
-if assertIsNotType(defbundle("foo", L_2), "matrix") != 1
+if assert_is_not_type(defbundle("foo", str_4), "list") != 1
     stop
 endif
 
-if assertIsNotType(defbundle("foo", mats_1), "array") != 0
+if assert_is_not_type(defbundle("foo", b_1), "bundle") != 0
     stop
 endif
-if assertIsNotType(defbundle("foo", mats_2), "matrix") != 1
-    stop
-endif
-if assertIsNotType(defbundle("foo", strarr_1), "string") != 1
-    stop
-endif
-if assertIsNotType(defbundle("foo", strarr_2), "list") != 1
+if assert_is_not_type(defbundle("foo", b_2), "series") != 1
     stop
 endif
 
-
-
-print "Start with assertTrue()"
-if !assertTrue(1)
+if assert_is_not_type(defbundle("foo", ser_1), "scalar") != 1
     stop
 endif
-if assertTrue(0)
-    stop
-endif
-if ok(assertTrue(NA))
-    stop
-endif
-if ok(assertTrue(2))
-    stop
-endif
-if ok(assertTrue(-1))
+if assert_is_not_type(defbundle("foo", ser_2), "series") != 0
     stop
 endif
 
-
-print "Start with assertFalse()"
-if assertFalse(1)
+if assert_is_not_type(defbundle("foo", L_1), "list") != 0
     stop
 endif
-if !assertFalse(0)
-    stop
-endif
-if ok(assertFalse(NA))
-    stop
-endif
-if ok(assertFalse(2))
-    stop
-endif
-if ok(assertFalse(-1))
+if assert_is_not_type(defbundle("foo", L_2), "matrix") != 1
     stop
 endif
 
-
-print "Start with assertEqualStr()"
-if assertEqualStr("ABC", "ABC") != 1
+if assert_is_not_type(defbundle("foo", mats_1), "array") != 0
     stop
 endif
-if assertEqualStr(" ABC", "ABC") != 0
+if assert_is_not_type(defbundle("foo", mats_2), "matrix") != 1
     stop
 endif
-if assertEqualStr(toupper("abc"), "ABC") != 1
+if assert_is_not_type(defbundle("foo", strarr_1), "string") != 1
     stop
 endif
-if assertEqualStr("", "") != 1
-    stop
-endif
-if assertEqualStr("", "__/%(=O?") != 0
-    stop
-endif
-if assertEqualStr("739838", "739838") != 1
-    stop
-endif
-
-
-print "Start with assertNotEqualStr()"
-if assertNotEqualStr("ABC", "ABC") != 0
-    stop
-endif
-if assertNotEqualStr(" ABC", "ABC") != 1
-    stop
-endif
-if assertNotEqualStr(toupper("abc"), "ABC") != 0
-    stop
-endif
-if assertNotEqualStr("", "") != 0
-    stop
-endif
-if assertNotEqualStr("", "__/%(=O?") != 1
-    stop
-endif
-if assertNotEqualStr("739838", "739838") != 0
+if assert_is_not_type(defbundle("foo", strarr_2), "list") != 1
     stop
 endif
 
 
 
-print "Start with assertEqualNum()"
-if !assertEqualNum(22, 22)
+print "Start with assert_true()"
+if !assert_true(1)
     stop
 endif
-if assertEqualNum(1.5, 1.49)
+if assert_true(0)
     stop
 endif
-if assertEqualNum(-34, 34)
+if ok(assert_true(NA))
     stop
 endif
-if ok(assertEqualNum(NA, 34))
+if ok(assert_true(2))
     stop
 endif
-if ok(assertEqualNum(34, NA))
-    stop
-endif
-if ok(assertEqualNum(NA, NA))
-    stop
-endif
-if assertEqualNum(-1, -1.001)
-    stop
-endif
-if ok(assertEqualNum(log(22), log(0)))
+if ok(assert_true(-1))
     stop
 endif
 
 
-print "Start with assertNotEqualNum()"
-if assertNotEqualNum(22, 22)
+print "Start with assert_false()"
+if assert_false(1)
     stop
 endif
-if !assertNotEqualNum(-34, 34)
+if !assert_false(0)
     stop
 endif
-if ok(assertNotEqualNum(NA, 34))
+if ok(assert_false(NA))
     stop
 endif
-if ok(assertNotEqualNum(34, NA))
+if ok(assert_false(2))
     stop
 endif
-if ok(assertNotEqualNum(NA, NA))
-    stop
-endif
-if !assertNotEqualNum(-1, -1.001)
+if ok(assert_false(-1))
     stop
 endif
 
 
-print "Start with assertGreaterEqualNum()"
-if !assertGreaterEqualNum(22, 22)
+print "Start with assert_equal_str()"
+if assert_equal_str("ABC", "ABC") != 1
     stop
 endif
-if assertGreaterEqualNum(-34, 34)
+if assert_equal_str(" ABC", "ABC") != 0
     stop
 endif
-if !assertGreaterEqualNum(34, -34)
+if assert_equal_str(toupper("abc"), "ABC") != 1
     stop
 endif
-if ok(assertGreaterEqualNum(NA, 34))
+if assert_equal_str("", "") != 1
     stop
 endif
-if ok(assertGreaterEqualNum(34, NA))
+if assert_equal_str("", "__/%(=O?") != 0
     stop
 endif
-if ok(assertGreaterEqualNum(NA, NA))
-    stop
-endif
-if !assertGreaterEqualNum(-1, -1.001)
-    stop
-endif
-if ok(assertGreaterEqualNum(log(22), log(0)))
+if assert_equal_str("739838", "739838") != 1
     stop
 endif
 
 
-print "Start with assertLessEqualNum()"
-if !assertLessEqualNum(22, 22)
+print "Start with assert_not_equal_str()"
+if assert_not_equal_str("ABC", "ABC") != 0
     stop
 endif
-if !assertLessEqualNum(-34, 34)
+if assert_not_equal_str(" ABC", "ABC") != 1
     stop
 endif
-if assertLessEqualNum(34, -34)
+if assert_not_equal_str(toupper("abc"), "ABC") != 0
     stop
 endif
-if ok(assertLessEqualNum(NA, 34))
+if assert_not_equal_str("", "") != 0
     stop
 endif
-if ok(assertLessEqualNum(34, NA))
+if assert_not_equal_str("", "__/%(=O?") != 1
     stop
 endif
-if ok(assertLessEqualNum(NA, NA))
-    stop
-endif
-if assertLessEqualNum(-1, -1.001)
-    stop
-endif
-if ok(assertLessEqualNum(log(22), log(0)))
+if assert_not_equal_str("739838", "739838") != 0
     stop
 endif
 
 
 
-print "Start with assertAlmostEqualNum()"
-if assertAlmostEqualNum(0.5, 1)
+print "Start with assert_equal_num()"
+if !assert_equal_num(22, 22)
     stop
 endif
-if assertAlmostEqualNum(0.99, 1, 1e-2)
+if assert_equal_num(1.5, 1.49)
     stop
 endif
-if !assertAlmostEqualNum(0.991, 1, 1e-2)
+if assert_equal_num(-34, 34)
     stop
 endif
-if assertAlmostEqualNum(-0.99, -1, 1e-2)
+if ok(assert_equal_num(NA, 34))
     stop
 endif
-if !assertAlmostEqualNum(-0.991, -1, 1e-2)
+if ok(assert_equal_num(34, NA))
     stop
 endif
-if assertAlmostEqualNum(0.99, -1, 1e-2)
+if ok(assert_equal_num(NA, NA))
     stop
 endif
-if assertAlmostEqualNum(0.991, -1, 1e-2)
+if assert_equal_num(-1, -1.001)
     stop
 endif
-if ok(assertAlmostEqualNum(0.5, NA))
-    stop
-endif
-if ok(assertAlmostEqualNum(NA, 1))
-    stop
-endif
-if ok(assertAlmostEqualNum(NA, NA))
+if ok(assert_equal_num(log(22), log(0)))
     stop
 endif
 
 
-print "Start with assertNotAlmostEqualNum()"
-if !assertNotAlmostEqualNum(0.5, 1)
+print "Start with assert_not_equal_num()"
+if assert_not_equal_num(22, 22)
     stop
 endif
-if !assertNotAlmostEqualNum(0.99, 1, 1e-2)
+if !assert_not_equal_num(-34, 34)
     stop
 endif
-if assertNotAlmostEqualNum(0.991, 1, 1e-2)
+if ok(assert_not_equal_num(NA, 34))
     stop
 endif
-if !assertNotAlmostEqualNum(-0.99, -1, 1e-2)
+if ok(assert_not_equal_num(34, NA))
     stop
 endif
-if assertNotAlmostEqualNum(-0.991, -1, 1e-2)
+if ok(assert_not_equal_num(NA, NA))
     stop
 endif
-if !assertNotAlmostEqualNum(0.99, -1, 1e-2)
+if !assert_not_equal_num(-1, -1.001)
     stop
 endif
-if !assertNotAlmostEqualNum(0.991, -1, 1e-2)
+
+
+print "Start with assert_greater_equal_num()"
+if !assert_greater_equal_num(22, 22)
     stop
 endif
-if ok(assertNotAlmostEqualNum(0.5, NA))
+if assert_greater_equal_num(-34, 34)
     stop
 endif
-if ok(assertNotAlmostEqualNum(NA, 1))
+if !assert_greater_equal_num(34, -34)
     stop
 endif
-if ok(assertNotAlmostEqualNum(NA, NA))
+if ok(assert_greater_equal_num(NA, 34))
+    stop
+endif
+if ok(assert_greater_equal_num(34, NA))
+    stop
+endif
+if ok(assert_greater_equal_num(NA, NA))
+    stop
+endif
+if !assert_greater_equal_num(-1, -1.001)
+    stop
+endif
+if ok(assert_greater_equal_num(log(22), log(0)))
+    stop
+endif
+
+
+print "Start with assert_less_equal_num()"
+if !assert_less_equal_num(22, 22)
+    stop
+endif
+if !assert_less_equal_num(-34, 34)
+    stop
+endif
+if assert_less_equal_num(34, -34)
+    stop
+endif
+if ok(assert_less_equal_num(NA, 34))
+    stop
+endif
+if ok(assert_less_equal_num(34, NA))
+    stop
+endif
+if ok(assert_less_equal_num(NA, NA))
+    stop
+endif
+if assert_less_equal_num(-1, -1.001)
+    stop
+endif
+if ok(assert_less_equal_num(log(22), log(0)))
+    stop
+endif
+
+
+
+print "Start with assert_almost_equal_num()"
+if assert_almost_equal_num(0.5, 1)
+    stop
+endif
+if assert_almost_equal_num(0.99, 1, 1e-2)
+    stop
+endif
+if !assert_almost_equal_num(0.991, 1, 1e-2)
+    stop
+endif
+if assert_almost_equal_num(-0.99, -1, 1e-2)
+    stop
+endif
+if !assert_almost_equal_num(-0.991, -1, 1e-2)
+    stop
+endif
+if assert_almost_equal_num(0.99, -1, 1e-2)
+    stop
+endif
+if assert_almost_equal_num(0.991, -1, 1e-2)
+    stop
+endif
+if ok(assert_almost_equal_num(0.5, NA))
+    stop
+endif
+if ok(assert_almost_equal_num(NA, 1))
+    stop
+endif
+if ok(assert_almost_equal_num(NA, NA))
+    stop
+endif
+
+
+print "Start with assert_not_almost_equal_num()"
+if !assert_not_almost_equal_num(0.5, 1)
+    stop
+endif
+if !assert_not_almost_equal_num(0.99, 1, 1e-2)
+    stop
+endif
+if assert_not_almost_equal_num(0.991, 1, 1e-2)
+    stop
+endif
+if !assert_not_almost_equal_num(-0.99, -1, 1e-2)
+    stop
+endif
+if assert_not_almost_equal_num(-0.991, -1, 1e-2)
+    stop
+endif
+if !assert_not_almost_equal_num(0.99, -1, 1e-2)
+    stop
+endif
+if !assert_not_almost_equal_num(0.991, -1, 1e-2)
+    stop
+endif
+if ok(assert_not_almost_equal_num(0.5, NA))
+    stop
+endif
+if ok(assert_not_almost_equal_num(NA, 1))
+    stop
+endif
+if ok(assert_not_almost_equal_num(NA, NA))
     stop
 endif
 

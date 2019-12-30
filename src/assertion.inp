@@ -55,7 +55,7 @@ function scalar assert_type_get_key_and_return (const bundle B,
 end function
 
 
-function scalar assertIsType (const bundle B,
+function scalar assert_is_type (const bundle B,
                               string type "scalar, series, matrix, string, bundle, array, list.")
     /* Checks that element in bundle B is of a specific type.
     Returns 1 if true, otherwise 0. */
@@ -64,7 +64,7 @@ function scalar assertIsType (const bundle B,
 end function
 
 
-function scalar assertIsNotType (const bundle B,
+function scalar assert_is_not_type (const bundle B,
                                  string type "scalar, series, matrix, string, bundle, array, list.")
     /* Checks that element in bundle B is not of a specific type.
     Returns 1 if true, otherwise 0. */
@@ -108,7 +108,7 @@ function scalar isbool (const scalar x)
 end function
 
 
-function scalar assertTrue (const scalar x)
+function scalar assert_true (const scalar x)
 /* Checks that bool(x) is True (=1).
     Returns 1 if True, otherwise 0. */
 
@@ -122,7 +122,7 @@ function scalar assertTrue (const scalar x)
 end function
 
 
-function scalar assertFalse (const scalar x)
+function scalar assert_false (const scalar x)
 /* Checks that bool(x) is False (=0).
     Returns 1 if False indeed, otherwise 0. */
 
@@ -136,7 +136,7 @@ function scalar assertFalse (const scalar x)
 end function
 
 
-function scalar assertEqualStr (const string first,
+function scalar assert_equal_str (const string first,
                                 const string second)
     /* Checks for string values that a == b.
     Returns 1 if true, otherwise 0. */
@@ -148,7 +148,7 @@ function scalar assertEqualStr (const string first,
     endif
 end function
 
-function scalar assertNotEqualStr (const string first,
+function scalar assert_not_equal_str (const string first,
                                    const string second)
     /* Checks for string values that a != b.
     Returns 1 if true, otherwise 0. */
@@ -174,7 +174,7 @@ function scalar valid_first_and_second (const scalar first,
 end function
 
 
-function scalar assertGreaterEqualNum (const scalar first,
+function scalar assert_greater_equal_num (const scalar first,
                                        const scalar second)
     /* Checks for numerical values that a >= b.
        Returns 1 if true, otherwise 0. If either first and/or
@@ -192,8 +192,8 @@ function scalar assertGreaterEqualNum (const scalar first,
 end function
 
 
-function scalar assertLessEqualNum (const scalar first,
-                                    const scalar second)
+function scalar assert_less_equal_num (const scalar first,
+                                       const scalar second)
     /* Checks for numerical values that a <= b.
        Returns 1 if true, otherwise 0. If either first and/or
     are NA, return NA. */
@@ -208,7 +208,7 @@ function scalar assertLessEqualNum (const scalar first,
 end function
 
 
-function scalar assertEqualNum (const scalar first,
+function scalar assert_equal_num (const scalar first,
                                 const scalar second)
     /* Checks for numerical values that a == b.
        Returns 1 if true, otherwise 0. If either first and/or
@@ -224,7 +224,7 @@ function scalar assertEqualNum (const scalar first,
 end function
 
 
-function scalar assertNotEqualNum (const scalar first,
+function scalar assert_not_equal_num (const scalar first,
                                    const scalar second)
     /* Checks for numerical values that a != b.
        Returns 1 if true, otherwise 0. If either first and/or
@@ -239,7 +239,7 @@ function scalar assertNotEqualNum (const scalar first,
     endif
 end function
 
-function scalar assertAlmostEqualNum (const scalar first,
+function scalar assert_almost_equal_num (const scalar first,
                                       const scalar second,
                                       const scalar threshold[0::1e-7] "decimal places to check")
     /* Checks for numerical values that round(a-b) == 0.
@@ -258,7 +258,7 @@ function scalar assertAlmostEqualNum (const scalar first,
 end function
 
 
-function scalar assertNotAlmostEqualNum (const scalar first,
+function scalar assert_not_almost_equal_num (const scalar first,
                                          const scalar second,
                                          const scalar threshold[0::1e-7] "decimal places to check")
     /* Checks for numerical values that a != b.

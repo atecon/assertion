@@ -9,7 +9,7 @@ Currently, the most commonly used methods are supported.
 
 
 
-assertEqualNum(first, second):
+assert_equal_num(first, second):
 --------------
 Checks for numerical values that first == second (equal).
 
@@ -20,7 +20,7 @@ Return:
 Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA.
 -----------------------------------------------------------------------
 
-assertNotEqualNum(first, second):
+assert_not_equal_num(first, second):
 --------------
 Checks for numerical values that first != second (not equal).
 
@@ -32,7 +32,7 @@ Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA
 -----------------------------------------------------------------------
 
 
-assertGreaterEqualNum(first, second):
+assert_greater_equal_num(first, second):
 --------------
 Checks for numerical values that first >= second (greater-or-equal).
 
@@ -43,7 +43,7 @@ Return:
 Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA.
 -----------------------------------------------------------------------
 
-assertLessEqualNum(first, second):
+assert_less_equal_num(first, second):
 --------------
 Checks for numerical values that first <= second (less-or-equal).
 
@@ -54,29 +54,31 @@ Return:
 Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA.
 -----------------------------------------------------------------------
 
-assertAlmostEqualNum(first, second):
+assert_almost_equal_num(first, second, threshold):
 --------------
 Checks for numerical values that round(first - second) == 0.
 
 Arguments:	first 	(scalar)
 		second	(scalar)
+		threshold (scalar), check up to specific decimal places; default: 1e-7
 
 Return:
 Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA.
 -----------------------------------------------------------------------
 
-assertNotAlmostEqualNum(first, second):
+assert_not_almost_equal_num(first, second, threshold):
 --------------
 Checks for numerical values that round(first - second) != 0.
 
 Arguments:	first 	(scalar)
 		second	(scalar)
+		threshold (scalar), check up to specific decimal places; default: 1e-7
 
 Return:
 Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA.
 -----------------------------------------------------------------------
 
-assertEqualStr(first, second):
+assert_equal_str(first, second):
 --------------
 Checks for string-valued variables that first == second (equal).
 
@@ -87,7 +89,7 @@ Return:
 Returns 1 if true, otherwise 0 (false).
 -----------------------------------------------------------------------
 
-assertNotEqualStr(first, second):
+assert_not_equal_str(first, second):
 --------------
 Checks for string-valued variables that first != second (not equal).
 
@@ -98,7 +100,7 @@ Return:
 Returns 1 if true, otherwise 0 (false).
 -----------------------------------------------------------------------
 
-assertTrue(x):
+assert_true(x):
 --------------
 Checks that bool(x) is True (=1).
 
@@ -108,7 +110,7 @@ Return:
 Returns 1 if True, otherwise 0 (False). If x is NA, return NA.
 -----------------------------------------------------------------------
 
-assertFalse(x):
+assert_false(x):
 --------------
 Checks that bool(x) is False (=0).
 
@@ -118,20 +120,19 @@ Return:
 Returns 1 if False, otherwise 0 (True). If x is NA, return NA.
 -----------------------------------------------------------------------
 
-assertIsType(B, type):
+assert_is_type(B, type):
 --------------
 Checks that element in bundle B is of a specific type.
 
-Arguments:	B		(bundle with single element)
+Arguments:	B		(bundle, only single element is allowed)
 		type 	(string, either: "scalar, series, matrix, string,
 			bundle, array, list.")
 
 Return:
-Returns 1 if true, otherwise 0 (false). If "type" is not supported data typ,
-return NA.
+Returns 1 if true, otherwise 0 (false). If "type" is not of a supported data type, return NA.
 -----------------------------------------------------------------------
 
-assertIsNotType(B, type):
+assert_is_not_type(B, type):
 --------------
 Checks that element in bundle B is not of a specific type.
 
@@ -140,8 +141,7 @@ Arguments:	B		(bundle with single element)
 			array, list.")
 
 Return:
-Returns 1 if true, otherwise 0 (false). If "type" is not supported data typ,
-return NA.
+Returns 1 if true, otherwise 0 (false). If "type" is not of a supported data type, return NA.
 -----------------------------------------------------------------------
 
 
