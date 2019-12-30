@@ -1,9 +1,9 @@
 set verbose off
 clear
 
-string WD = "/home/at/git/assertion"
-set workdir @WD
 include "./src/assertion.inp" --force
+
+# external packages needed
 include string_utils.gfn 		# must be installed
 include extra.gfn		 		# must be installed
 
