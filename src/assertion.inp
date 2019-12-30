@@ -2,7 +2,7 @@ function scalar one_element_in_bundle (const bundle B)
     /* Helper function for assertIs(Not)Type() */
 
     if nelem(B) != 1
-        printf "\nError: Bundle 'B' must include a single element to check."
+        printf "\nError: Bundle 'B' has to include only a single element."
         return 0
     else
         return 1
@@ -100,6 +100,7 @@ function scalar isbool (const scalar x)
     if ok(x) && (x == 1 || x == 0)
         return 1
     elif !ok(x)
+        printf "\nError: Input value is not boolean (0=false, 1=true).\n"
         return NA
     else
         return 0
@@ -167,6 +168,7 @@ function scalar valid_first_and_second (const scalar first,
     if ok(first) && ok(second)
         return 1
     else
+        printf "\nError: At least one input value is NA.\n"
         return 0
     endif
 end function
@@ -178,8 +180,8 @@ function scalar assertGreaterEqualNum (const scalar first,
        Returns 1 if true, otherwise 0. If either first and/or
     are NA, return NA. */
 
-    if !valid_first_and_second(first, second)
-        return NA
+    if !valid_first_and_second(first, second)        
+        return NA 
     endif
 
     if first >= second
