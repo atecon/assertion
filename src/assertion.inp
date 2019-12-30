@@ -180,8 +180,8 @@ function scalar assertGreaterEqualNum (const scalar first,
        Returns 1 if true, otherwise 0. If either first and/or
     are NA, return NA. */
 
-    if !valid_first_and_second(first, second)        
-        return NA 
+    if !valid_first_and_second(first, second)
+        return NA
     endif
 
     if first >= second
