@@ -1,3 +1,4 @@
+set warnings off
 set verbose off
 clear
 
@@ -8,31 +9,6 @@ include string_utils.gfn 		# must be installed
 include extra.gfn		 		# must be installed
 
 nulldata 4 -p
-
-
-print "Start with isbool()"
-if !isbool(0)
-    stop
-endif
-if !isbool(1)
-    stop
-endif
-if isbool(1.001)
-    stop
-endif
-if isbool(0.99)
-    stop
-endif
-if isbool(-1)
-    stop
-endif
-if isbool(2)
-    stop
-endif
-if ok(isbool(NA))
-    stop
-endif
-
 
 print "Start with assert_is_type() + empty bundle"
 bundle b = null						# empty bundle case
@@ -281,10 +257,10 @@ endif
 if ok(assert_true(NA))
     stop
 endif
-if ok(assert_true(2))
+if !assert_true(2)
     stop
 endif
-if ok(assert_true(-1))
+if !assert_true(-1)
     stop
 endif
 
@@ -299,10 +275,10 @@ endif
 if ok(assert_false(NA))
     stop
 endif
-if ok(assert_false(2))
+if assert_false(2)
     stop
 endif
-if ok(assert_false(-1))
+if assert_false(-1)
     stop
 endif
 

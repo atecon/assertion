@@ -94,27 +94,13 @@ function strings get_gretl_dtypes (void)
 end function
 
 
-function scalar isbool (const scalar x)
-    /* Helper function for assertTrue/False(). */
-
-    if ok(x) && (x == 1 || x == 0)
-        return 1
-    elif !ok(x)
-        printf "\nError: Input value is not boolean (0=false, 1=true).\n"
-        return NA
-    else
-        return 0
-    endif
-end function
-
-
 function scalar assert_true (const scalar x)
 /* Checks that bool(x) is True (=1).
     Returns 1 if True, otherwise 0. */
 
-    if !isbool(x)
+    if !ok(x)
         return NA
-    elif x == 1
+    elif x
         return 1
     else
         return 0
@@ -126,9 +112,9 @@ function scalar assert_false (const scalar x)
 /* Checks that bool(x) is False (=0).
     Returns 1 if False indeed, otherwise 0. */
 
-    if !isbool(x)
+    if !ok(x)
         return NA
-    elif x == 1
+    elif x
         return 0
     else
         return 1
