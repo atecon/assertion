@@ -102,7 +102,7 @@ Returns 1 if true, otherwise 0 (false).
 
 assert_true(x):
 --------------
-Checks that bool(x) is True (=1).
+Checks that bool(x) is True (!=0 and !=NA).
 
 Arguments:	x		(scalar)
 
@@ -112,7 +112,7 @@ Returns 1 if True, otherwise 0 (False). If x is NA, return NA.
 
 assert_false(x):
 --------------
-Checks that bool(x) is False (=0).
+Checks that bool(x) is False (!=0 and !=NA).
 
 Arguments:	x		(scalar)
 
