@@ -1,3 +1,5 @@
+include assertion_private.inp
+
 function scalar one_element_in_bundle (const bundle B)
     /* Helper function for assertIs(Not)Type() */
 
@@ -149,7 +151,7 @@ end function
 
 function scalar valid_first_and_second (const scalar first,
                                         const scalar second)
-    /* Helper function for assert(Not)EqualNum(). */
+    /* Helper function for assert_(not_)equal_num(). */
 
     if ok(first) && ok(second)
         return 1
@@ -194,18 +196,15 @@ function scalar assert_less_equal_num (const scalar first,
 end function
 
 
-function scalar assert_equal_num (const scalar first,
+function void assert_equal_num (const scalar first,
                                 const scalar second)
     /* Checks for numerical values that a == b.
        Returns 1 if true, otherwise 0. If either first and/or
     are NA, return NA. */
 
-    if !valid_first_and_second(first, second)
-        return NA
-    elif first == second
-        return 1
-    else
-        return 0
+    if !valid_first_and_second(first, second) || (first != second)
+        fail_msg_valid_first_and_second(first, second, \
+          sprintf("assert_equal_num(%g, %g)", first, second))
     endif
 end function
 
