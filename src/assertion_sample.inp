@@ -6,38 +6,42 @@ include assertion.gfn --force
 scalar scalar_1 = NA
 scalar scalar_2 = -4.7
 
-eval assert_true(ok(scalar_1))
-eval assert_true(ok(scalar_2))
+catch assert_true(scalar_1)
+assert_true(scalar_2)
 
-eval assert_false(ok(scalar_1))
-eval assert_false(ok(scalar_2))
+catch assert_false(scalar_1)
+catch assert_false(scalar_2)
 
 
 # assert_equal_str():
 string str_1 = "ABC"
 string str_2 = "ABC"
 string str_3 = "_ABC "
-eval assert_equal_str(str_1, str_2)
-eval assert_equal_str(str_1, str_3)
+assert_equal_str(str_1, str_2)
+catch assert_equal_str(str_1, str_3)
 
 
 # assert_equal_num():
 scalar scalar_1 = -2.7
 scalar scalar_2 = -2.7
 scalar scalar_3 = 3.5
-eval assert_equal_num(scalar_1, scalar_2)
-eval assert_equal_num(scalar_1, scalar_3)
+assert_equal_num(scalar_1, scalar_2)
+catch assert_equal_num(scalar_1, scalar_3)
 
 # assert_greater_equal_num():
 scalar scalar_1 = -2.7
 scalar scalar_2 = -2.7
 scalar scalar_3 = 3.5
-eval assert_greater_equal_num(scalar_1, scalar_2)
-eval assert_greater_equal_num(scalar_1, scalar_3)
+assert_greater_equal_num(scalar_1, scalar_2)
+catch assert_greater_equal_num(scalar_1, scalar_3)
 
 # assert_almost_equal_num():
 scalar scalar_1 = 1
-scalar scalar_2 = 0.5
-scalar scalar_3 = 0.6
-eval assert_almost_equal_num(scalar_1, scalar_2)
-eval assert_almost_equal_num(scalar_1, scalar_3)
+scalar scalar_2 = 0.99
+scalar scalar_3 = 1.01
+assert_almost_equal_num(scalar_1, scalar_2, 1e-1)
+catch assert_almost_equal_num(scalar_1, scalar_2, 1e-2)
+catch assert_almost_equal_num(scalar_1, scalar_3, 1e-2)
+assert_almost_equal_num(scalar_1, scalar_3, 1e-1)
+
+

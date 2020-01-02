@@ -17,7 +17,8 @@ Arguments:	first 	(scalar)
 		second	(scalar)
 
 Return:
-Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA.
+Function error in case assertion is wrong or either first and/or second are NA.
+
 -----------------------------------------------------------------------
 
 assert_not_equal_num(first, second):
@@ -28,7 +29,7 @@ Arguments:	first 	(scalar)
 		second	(scalar)
 
 Return:
-Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA.
+Function error in case assertion is wrong or either first and/or second are NA
 -----------------------------------------------------------------------
 
 
@@ -40,7 +41,7 @@ Arguments:	first 	(scalar)
 		second	(scalar)
 
 Return:
-Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA.
+Function error in case assertion is wrong or either first and/or second are NA
 -----------------------------------------------------------------------
 
 assert_less_equal_num(first, second):
@@ -51,7 +52,7 @@ Arguments:	first 	(scalar)
 		second	(scalar)
 
 Return:
-Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA.
+Function error in case assertion is wrong or either first and/or second are NA
 -----------------------------------------------------------------------
 
 assert_almost_equal_num(first, second, threshold):
@@ -63,7 +64,7 @@ Arguments:	first 	(scalar)
 		threshold (scalar), check up to specific decimal places; default: 1e-7
 
 Return:
-Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA.
+Function error in case assertion is wrong or either first and/or second are NA
 -----------------------------------------------------------------------
 
 assert_not_almost_equal_num(first, second, threshold):
@@ -75,7 +76,7 @@ Arguments:	first 	(scalar)
 		threshold (scalar), check up to specific decimal places; default: 1e-7
 
 Return:
-Returns 1 if true, otherwise 0 (false). If either first and/or are NA, return NA.
+Function error in case assertion is wrong or either first and/or second are NA
 -----------------------------------------------------------------------
 
 assert_equal_str(first, second):
@@ -86,7 +87,7 @@ Arguments:	first 	(string)
 		second	(string)
 
 Return:
-Returns 1 if true, otherwise 0 (false).
+Function error in case assertion is wrong or either first and/or second are NA
 -----------------------------------------------------------------------
 
 assert_not_equal_str(first, second):
@@ -97,7 +98,7 @@ Arguments:	first 	(string)
 		second	(string)
 
 Return:
-Returns 1 if true, otherwise 0 (false).
+Function error in case assertion is wrong or either first and/or second are NA
 -----------------------------------------------------------------------
 
 assert_true(x):
@@ -107,7 +108,7 @@ Checks that bool(x) is True (!=0 and !=NA).
 Arguments:	x		(scalar)
 
 Return:
-Returns 1 if True, otherwise 0 (False). If x is NA, return NA.
+Function error in case assertion is wrong or either first and/or second are NA.
 -----------------------------------------------------------------------
 
 assert_false(x):
@@ -117,7 +118,7 @@ Checks that bool(x) is False (!=0 and !=NA).
 Arguments:	x		(scalar)
 
 Return:
-Returns 1 if False, otherwise 0 (True). If x is NA, return NA.
+Function error in case assertion is wrong or either first and/or second are NA.
 -----------------------------------------------------------------------
 
 assert_is_type(B, type):
@@ -129,7 +130,7 @@ Arguments:	B		(bundle, only single element is allowed)
 			bundle, array, list.")
 
 Return:
-Returns 1 if true, otherwise 0 (false). If "type" is not of a supported data type, return NA.
+Function error in case assertion is wrong or either first and/or second are NA.
 -----------------------------------------------------------------------
 
 assert_is_not_type(B, type):
@@ -141,11 +142,11 @@ Arguments:	B		(bundle with single element)
 			array, list.")
 
 Return:
-Returns 1 if true, otherwise 0 (false). If "type" is not of a supported data type, return NA.
+Function error in case assertion is wrong or either first and/or second are NA.
 -----------------------------------------------------------------------
 
 
 Changelog:
-- v0.5, December 2019:
+- v0.5, January 2019:
     + initial release
 
