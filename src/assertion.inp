@@ -282,7 +282,6 @@ function void assert_not_almost_equal_num (const scalar first,
 end function
 
 
-
 function void fail_msg_assert (const string assert_func,
                                const string assert_stmt)
     /* Print-out in case assert fails. */
