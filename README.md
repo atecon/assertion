@@ -1,3 +1,5 @@
+The "assertion" package
+--
 Collection of assert-functions for writing (unit-)test cases and to detect test failure. Assert is a method useful in determining Pass or Fail status of a test case.
 
 Please ask questions and report bugs on the gretl mailing list if possible -- otherwise here on github.com.
@@ -18,3 +20,10 @@ Currently, the most standard methods are supported:
 12) assert_is_not_type()
 
 For details see the [help file](src/assertion_help.txt).
+
+Install and load the package
+--
+```hansl
+pkg install assertion
+include assertion.gfn
+```
