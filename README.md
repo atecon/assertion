@@ -1,5 +1,8 @@
-The "assertion" package
---
+* The "assertion" package
+
+[![Build Status](https://travis-ci.org/atecon/assertion.svg?branch=master)](https://travis-ci.org/atecon/assertion)
+
+
 Collection of assert-functions for writing (unit-)test cases and to detect test failure. Assert is a method useful in determining Pass or Fail status of a test case.
 
 Please ask questions and report bugs on the gretl mailing list if possible -- otherwise here on github.com.
