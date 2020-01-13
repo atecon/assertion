@@ -1,4 +1,5 @@
-* The "assertion" package
+The "assertion" package
+--
 
 [![Build Status](https://travis-ci.org/atecon/assertion.svg?branch=master)](https://travis-ci.org/atecon/assertion)
 
