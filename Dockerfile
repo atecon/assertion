@@ -1,4 +1,4 @@
-FROM atecon/gretl:2020a
+FROM atecon/gretl
 
 ENV HOME /home/abc
 

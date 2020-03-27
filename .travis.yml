@@ -5,7 +5,7 @@ services:
 
 os: linux
 
-dist: bionic
+dist: eoan
 
 git:
   depth: 1
