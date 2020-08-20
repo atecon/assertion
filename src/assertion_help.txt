@@ -7,6 +7,8 @@ Collection of assert-functions for writing (unit-)test cases and to detect test 
 
 Currently, the most commonly used methods are supported.
 
+Most functions are inspired by the "unittest" package for Python:
+https://docs.python.org/3/library/unittest.html
 
 
 assert_equal_num(first, second):
@@ -14,11 +16,10 @@ assert_equal_num(first, second):
 Checks for numerical values that first == second (equal).
 
 Arguments:	first 	(scalar)
-		second	(scalar)
+            second	(scalar)
 
 Return:
-Function error in case assertion is wrong or either first and/or second are NA.
-
+Function error if what is asserted is wrong or either first and/or second are NA.
 -----------------------------------------------------------------------
 
 assert_not_equal_num(first, second):
@@ -26,10 +27,10 @@ assert_not_equal_num(first, second):
 Checks for numerical values that first != second (not equal).
 
 Arguments:	first 	(scalar)
-		second	(scalar)
+            second	(scalar)
 
 Return:
-Function error in case assertion is wrong or either first and/or second are NA
+Function error if what is asserted is wrong or either first and/or second are NA
 -----------------------------------------------------------------------
 
 
@@ -38,10 +39,10 @@ assert_greater_equal_num(first, second):
 Checks for numerical values that first >= second (greater-or-equal).
 
 Arguments:	first 	(scalar)
-		second	(scalar)
+            second	(scalar)
 
 Return:
-Function error in case assertion is wrong or either first and/or second are NA
+Function error if what is asserted is wrong or either first and/or second are NA
 -----------------------------------------------------------------------
 
 assert_less_equal_num(first, second):
@@ -49,10 +50,10 @@ assert_less_equal_num(first, second):
 Checks for numerical values that first <= second (less-or-equal).
 
 Arguments:	first 	(scalar)
-		second	(scalar)
+            second	(scalar)
 
 Return:
-Function error in case assertion is wrong or either first and/or second are NA
+Function error if what is asserted is wrong or either first and/or second are NA
 -----------------------------------------------------------------------
 
 assert_almost_equal_num(first, second, threshold):
@@ -60,11 +61,11 @@ assert_almost_equal_num(first, second, threshold):
 Checks for numerical values that round(first - second) == 0.
 
 Arguments:	first 	(scalar)
-		second	(scalar)
-		threshold (scalar), check up to specific decimal places; default: 1e-7
+		    second	(scalar)
+		    threshold (scalar), check up to specific decimal places; default: 1e-7
 
 Return:
-Function error in case assertion is wrong or either first and/or second are NA
+Function error if what is asserted is wrong or either first and/or second are NA
 -----------------------------------------------------------------------
 
 assert_not_almost_equal_num(first, second, threshold):
@@ -72,11 +73,11 @@ assert_not_almost_equal_num(first, second, threshold):
 Checks for numerical values that round(first - second) != 0.
 
 Arguments:	first 	(scalar)
-		second	(scalar)
-		threshold (scalar), check up to specific decimal places; default: 1e-7
+		    second	(scalar)
+		    threshold (scalar), check up to specific decimal places; default: 1e-7
 
 Return:
-Function error in case assertion is wrong or either first and/or second are NA
+Function error if what is asserted is or either first and/or second are NA
 -----------------------------------------------------------------------
 
 assert_equal_str(first, second):
@@ -84,7 +85,7 @@ assert_equal_str(first, second):
 Checks for string-valued variables that first == second (equal).
 
 Arguments:	first 	(string)
-		second	(string)
+            second	(string)
 
 Return:
 Function error in case assertion is wrong or either first and/or second are NA
@@ -95,30 +96,30 @@ assert_not_equal_str(first, second):
 Checks for string-valued variables that first != second (not equal).
 
 Arguments:	first 	(string)
-		second	(string)
+            second	(string)
 
 Return:
-Function error in case assertion is wrong or either first and/or second are NA
+Function error if what is asserted is wrong or either first and/or second are NA
 -----------------------------------------------------------------------
 
 assert_true(x):
 --------------
 Checks that bool(x) is True (!=0 and !=NA).
 
-Arguments:	x		(scalar)
+Arguments:	 x		(scalar)
 
 Return:
-Function error in case assertion is wrong or either first and/or second are NA.
+Function error if what is asserted is wrong or either the argument is NA.
 -----------------------------------------------------------------------
 
 assert_false(x):
 --------------
-Checks that bool(x) is False (!=0 and !=NA).
+Checks that bool(x) is False (==0 and !=NA).
 
 Arguments:	x		(scalar)
 
 Return:
-Function error in case assertion is wrong or either first and/or second are NA.
+Function error case assertion is wrong or either the argument is NA.
 -----------------------------------------------------------------------
 
 assert_is_type(B, type):
@@ -126,8 +127,8 @@ assert_is_type(B, type):
 Checks that element in bundle B is of a specific type.
 
 Arguments:	B		(bundle, only single element is allowed)
-		type 	(string, either: "scalar, series, matrix, string,
-			bundle, array, list.")
+            type 	(string, either: "scalar, series, matrix, string,
+            bundle, array, list.")
 
 Return:
 Function error in case assertion is wrong or either first and/or second are NA.
@@ -138,7 +139,7 @@ assert_is_not_type(B, type):
 Checks that element in bundle B is not of a specific type.
 
 Arguments:	B		(bundle with single element)
-		type 	(string, either: "scalar, series, matrix, string, bundle,
+            type 	(string, either: "scalar, series, matrix, string, bundle,
 			array, list.")
 
 Return:
