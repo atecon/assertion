@@ -133,7 +133,7 @@ end function
 function void assert_false (const scalar x)
     /* Checks that bool(x) is False (=0). */
 
-    if !ok(x) || x == 1
+    if !ok(x) || x != 0
         string func_name = "assert_false"
 
         fail_msg_assert(sprintf("%s(%g)", func_name, x), \
