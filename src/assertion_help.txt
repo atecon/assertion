@@ -15,8 +15,8 @@ assert_equal_num(first, second):
 --------------
 Checks for numerical values that first == second (equal).
 
-Arguments:	first 	(scalar)
-            second	(scalar)
+Arguments:       first  (scalar)
+                 second (scalar)
 
 Return:
 Function error if what is asserted is wrong or either first and/or second are NA.
@@ -26,8 +26,8 @@ assert_not_equal_num(first, second):
 --------------
 Checks for numerical values that first != second (not equal).
 
-Arguments:	first 	(scalar)
-            second	(scalar)
+Arguments:       first  (scalar)
+                 second (scalar)
 
 Return:
 Function error if what is asserted is wrong or either first and/or second are NA.
@@ -38,8 +38,8 @@ assert_greater_equal_num(first, second):
 --------------
 Checks for numerical values that first >= second (greater-or-equal).
 
-Arguments:	first 	(scalar)
-            second	(scalar)
+Arguments:       first  (scalar)
+                 second (scalar)
 
 Return:
 Function error if what is asserted is wrong or either first and/or second are NA.
@@ -49,8 +49,8 @@ assert_less_equal_num(first, second):
 --------------
 Checks for numerical values that first <= second (less-or-equal).
 
-Arguments:	first 	(scalar)
-            second	(scalar)
+Arguments:       first  (scalar)
+                 second (scalar)
 
 Return:
 Function error if what is asserted is wrong or either first and/or second are NA.
@@ -60,9 +60,10 @@ assert_almost_equal_num(first, second, threshold):
 --------------
 Checks for numerical values that round(first - second) == 0.
 
-Arguments:	first 	(scalar)
-		    second	(scalar)
-		    threshold (scalar), check up to specific decimal places; default: 1e-7
+Arguments:  first       (scalar)
+            second      (scalar)
+            threshold    (scalar), check up to specific decimal places;
+                         default: 1e-7
 
 Return:
 Function error if what is asserted is wrong or either first and/or second are NA.
@@ -72,20 +73,21 @@ assert_not_almost_equal_num(first, second, threshold):
 --------------
 Checks for numerical values that round(first - second) != 0.
 
-Arguments:	first 	(scalar)
-		    second	(scalar)
-		    threshold (scalar), check up to specific decimal places; default: 1e-7
+Arguments:   first       (scalar)
+             second      (scalar)
+             threshold   (scalar), check up to specific decimal places;
+                         default: 1e-7
 
 Return:
-Function error if what is asserted is or either first and/or second are NA
+Function error if what is asserted is wrong or either first and/or second are NA
 -----------------------------------------------------------------------
 
 assert_equal_str(first, second):
 --------------
-Checks for string-valued variables that first == second (equal).
+Checks for string-valued variables that first == second.
 
-Arguments:	first 	(string)
-            second	(string)
+Arguments:   first      (string)
+             second     (string)
 
 Return:
 Function error if what is asserted is wrong or either first and/or second are NA.
@@ -93,10 +95,10 @@ Function error if what is asserted is wrong or either first and/or second are NA
 
 assert_not_equal_str(first, second):
 --------------
-Checks for string-valued variables that first != second (not equal).
+Checks for string-valued variables that first != second.
 
-Arguments:	first 	(string)
-            second	(string)
+Arguments:   first      (string)
+             second     (string)
 
 Return:
 Function error if what is asserted is wrong or either first and/or second are NA.
@@ -106,7 +108,7 @@ assert_true(x):
 --------------
 Checks that bool(x) is True (!=0 and !=NA).
 
-Arguments:	 x		(scalar)
+Arguments:    x          (scalar)
 
 Return:
 Function error if what is asserted is wrong or either the argument is NA.
@@ -116,19 +118,21 @@ assert_false(x):
 --------------
 Checks that bool(x) is False (==0 and !=NA).
 
-Arguments:	x		(scalar)
+Arguments:    x          (scalar)
 
 Return:
 Function error case assertion is wrong or either the argument is NA.
+
+Note: The standard way of asserting that P is false is to assert not-P. Try to avoid assert_false() by using assert_true() accordingly. The assert_false() function will deprecated with the next version after version 1.0.
 -----------------------------------------------------------------------
 
 assert_is_type(B, type):
 --------------
 Checks that element in bundle B is of a specific type.
 
-Arguments:	B		(bundle, only single element is allowed)
-            type 	(string, either: "scalar, series, matrix, string,
-            bundle, array, list.")
+Arguments:   B      (bundle, only single element is allowed)
+             type   (string, either: "scalar, series, matrix, string,
+                    bundle, array, list.")
 
 Return:
 Function error if what is asserted is wrong or either first and/or second
@@ -139,9 +143,9 @@ assert_is_not_type(B, type):
 --------------
 Checks that element in bundle B is not of a specific type.
 
-Arguments:	B		(bundle with single element)
-            type 	(string, either: "scalar, series, matrix, string, bundle,
-			        array, list.")
+Arguments:   B       (bundle with single element)
+             type    (string, either: "scalar, series, matrix, string,
+                     bundle, array, list.")
 
 Return:
 Function error if what is asserted is wrong or either first and/or second
@@ -150,6 +154,12 @@ are NA.
 
 
 Changelog:
+- v1.0, August 2020:
+    + Fix bug in assert_false(): should throw error in case 'x' IS NOT 0 instead
+      of IS 1.
+    + Improve help text.
+    + Add note on preferring assert_true() instead of assert_false()
+      whenever possible.
+    + Put unit-tests into separate functions to avoid leakages.
 - v0.5, January 2020:
     + initial release
-

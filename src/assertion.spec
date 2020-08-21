@@ -1,7 +1,7 @@
 author = Artur Tarassow
 email = atecon@posteo.de
-version = 0.5
-date = 2020-01-06
+version = 1.0
+date = 2020-08-21
 description = Assert functions for verifying expectations and values in gretl tests
 tags = C81
 min-version = 2018a
