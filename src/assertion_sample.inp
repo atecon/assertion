@@ -4,8 +4,9 @@ clear
 
 include assertion.gfn
 
-scalar run_failing_cases = 0		# 1=run failing cases, 0=don't
+scalar run_failing_cases = 0		# SELECT: 1=run failing cases, 0=don't
 
+# Initialize some variables
 scalar scalar_1 = 0
 scalar scalar_2 = -2.7
 scalar scalar_3 = 3.5
@@ -37,8 +38,9 @@ if run_failing_cases
     catch assert_greater_equal_num(scalar_2, scalar_3)
     catch assert_almost_equal_num(scalar_3, scalar_4, 1e-2)
 
-    ## string values
+    # string values
     catch assert_equal_str(str_1, str_3)
 endif
 
-print "Finished"
+
+print "Finished 8 asserts."

@@ -3,7 +3,7 @@
 <gretl-function-package name="assertion" no-data-ok="true" minver="2018a">
 <author email="atecon@posteo.de">Artur Tarassow</author>
 <version>1.0</version>
-<date>2020-08-21</date>
+<date>2020-08-22</date>
 <description>Assert functions for verifying expectations and values in gretl tests</description>
 <tags>C81</tags>
 <help>
@@ -71,8 +71,8 @@ Checks for numerical values that round(first - second) == 0.
 
 Arguments:  first       (scalar)
             second      (scalar)
-            threshold    (scalar), check up to specific decimal places;
-                         default: 1e-7
+            threshold   (scalar), check up to specific decimal places;
+                        default: 1e-7
 
 Return:
 Function error if what is asserted is wrong or either first and/or second are NA.
@@ -164,8 +164,8 @@ are NA.
 
 Changelog:
 - v1.0, August 2020:
-    + Fix bug in assert_false(): should throw error in case 'x' IS NOT 0 instead
-      of IS 1.
+    + Fix bug in assert_false(): should throw error in case 'x' IS NOT
+      0 instead of IS 1.
     + Improve help text.
     + Add note on preferring assert_true() instead of assert_false()
       whenever possible.
@@ -462,8 +462,9 @@ clear
 
 include assertion.gfn
 
-scalar run_failing_cases = 0		# 1=run failing cases, 0=don't
+scalar run_failing_cases = 0		# SELECT: 1=run failing cases, 0=don't
 
+# Initialize some variables
 scalar scalar_1 = 0
 scalar scalar_2 = -2.7
 scalar scalar_3 = 3.5
@@ -495,11 +496,12 @@ if run_failing_cases
     catch assert_greater_equal_num(scalar_2, scalar_3)
     catch assert_almost_equal_num(scalar_3, scalar_4, 1e-2)
 
-    ## string values
+    # string values
     catch assert_equal_str(str_1, str_3)
 endif
 
-print &quot;Finished&quot;
+
+print &quot;Finished 8 asserts.&quot;
 </sample-script>
 </gretl-function-package>
 </gretl-functions>
