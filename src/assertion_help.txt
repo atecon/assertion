@@ -157,6 +157,7 @@ Changelog:
 - v1.0, August 2020:
     + Fix bug in assert_false(): should throw error in case 'x' IS NOT
       0 instead of IS 1.
+    + Replace deprecated funcerr() function by funcerr command.
     + Improve help text.
     + Add note on preferring assert_true() instead of assert_false()
       whenever possible.
