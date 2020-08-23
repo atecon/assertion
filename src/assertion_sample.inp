@@ -1,5 +1,4 @@
 set verbose off
-set warnings off
 clear
 
 include assertion.gfn
@@ -30,16 +29,15 @@ assert_not_equal_str(str_1, str_3)
 
 
 # failing cases	 -- activate if you want to see failures
-# 'catch' leads to non-stopping behavior
 if run_failing_cases
     ## numeric values
-    catch assert_true(scalar_1)
-    catch assert_equal_num(scalar_1, scalar_2)
-    catch assert_greater_equal_num(scalar_2, scalar_3)
-    catch assert_almost_equal_num(scalar_3, scalar_4, 1e-2)
+    assert_true(scalar_1)
+    assert_equal_num(scalar_1, scalar_2)
+    assert_greater_equal_num(scalar_2, scalar_3)
+    assert_almost_equal_num(scalar_3, scalar_4, 1e-2)
 
     # string values
-    catch assert_equal_str(str_1, str_3)
+    assert_equal_str(str_1, str_3)
 endif
 
 

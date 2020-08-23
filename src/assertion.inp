@@ -125,7 +125,8 @@ function void assert_true (const scalar x)
         fail_msg_assert(sprintf("%s(%g)", func_name, x), \
           sprintf("bool(%g) is True", x))
 
-        print_funcerr_msg(sprintf("%s failed.", func_name))
+        string s = sprintf("%s failed.", func_name)
+        funcerr "@s"
     endif
 end function
 
@@ -154,7 +155,8 @@ function void assert_equal_str (const string first,
         fail_msg_assert(sprintf("%s(%s, %s)", func_name, first, second), \
           sprintf("%s == %s", first, second))
 
-        print_funcerr_msg(sprintf("%s failed.", func_name))
+        string s = sprintf("%s failed.", func_name)
+        funcerr "@s"
     endif
 end function
 
@@ -169,7 +171,8 @@ function void assert_not_equal_str (const string first,
         fail_msg_assert(sprintf("%s(%s, %s)", func_name, first, second), \
           sprintf("%s != %s", first, second))
 
-        print_funcerr_msg(sprintf("%s failed.", func_name))
+        string s = sprintf("%s failed.", func_name)
+        funcerr "@s"
     endif
 end function
 
@@ -197,7 +200,8 @@ function void assert_greater_equal_num (const scalar first,
         fail_msg_assert(sprintf("%s(%g, %g)", func_name, first, second), \
           sprintf("%g >= %g", first, second))
 
-        print_funcerr_msg(sprintf("%s failed.", func_name))
+        string s = sprintf("%s failed.", func_name)
+        funcerr "@s"
     endif
 end function
 
@@ -212,7 +216,8 @@ function void assert_less_equal_num (const scalar first,
         fail_msg_assert(sprintf("%s(%g, %g)", func_name, first, second), \
           sprintf("%g <= %g", first, second))
 
-        print_funcerr_msg(sprintf("%s failed.", func_name))
+        string s = sprintf("%s failed.", func_name)
+        funcerr "@s"
     endif
 end function
 
@@ -227,7 +232,8 @@ function void assert_equal_num (const scalar first,
         fail_msg_assert(sprintf("%s(%g, %g)", func_name, first, second), \
           sprintf("%g == %g", first, second))
 
-        print_funcerr_msg(sprintf("%s failed.", func_name))
+        string s = sprintf("%s failed.", func_name)
+        funcerr "@s"
     endif
 end function
 
@@ -242,7 +248,8 @@ function void assert_not_equal_num (const scalar first,
         fail_msg_assert(sprintf("%s(%g, %g)", func_name, first, second), \
           sprintf("%g != %g", first, second))
 
-        print_funcerr_msg(sprintf("%s failed.", func_name))
+        string s = sprintf("%s failed.", func_name)
+        funcerr "@s"
     endif
 end function
 
@@ -259,7 +266,8 @@ function void assert_almost_equal_num (const scalar first,
         fail_msg_assert(sprintf("%s(%g, %g, %g)", func_name, first, second, threshold), \
           sprintf("round(%g - %g) == 0", first, second))
 
-        print_funcerr_msg(sprintf("%s failed.", func_name))
+        string s = sprintf("%s failed.", func_name)
+        funcerr "@s"
     endif
 end function
 
@@ -277,14 +285,11 @@ function void assert_not_almost_equal_num (const scalar first,
         fail_msg_assert(sprintf("%s(%g, %g, %g)", func_name, first, second, threshold), \
           sprintf("round(%g - %g) != 0", first, second))
 
-        print_funcerr_msg(sprintf("%s failed.", func_name))
+        string s = sprintf("%s failed.", func_name)
+        funcerr "@s"
     endif
 end function
 
-
-function void print_funcerr_msg (const string func_name)
-    funcerr "@func_name"
-end function
 
 function void fail_msg_assert (const string assert_func,
                                const string assert_stmt)

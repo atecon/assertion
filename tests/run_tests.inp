@@ -553,16 +553,6 @@ end function
 test_assert_not_alm_equal_num()
 
 
-function void test_print_funcerr_msg (void)
-    print "Start with print_funcerr_msg()"
 
-    string s = "Some error message"
-
-    catch print_funcerr_msg(s)
-end function
-test_print_funcerr_msg()
-
-
-
-printf "\nInfo: All tests passed.\n"
+printf "\nInfo: All tests successfully passed.\n"
 quit
