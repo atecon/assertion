@@ -19,9 +19,8 @@ Currently, the most standard methods are supported:
 7) assert_equal_str()
 8) assert_not_equal_str()
 9) assert_true()
-10) assert_false()
-11) assert_is_type()
-12) assert_is_not_type()
+10) assert_is_type()
+11) assert_is_not_type()
 
 For details see the [help file](src/assertion_help.txt).
 
